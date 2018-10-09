@@ -81,9 +81,9 @@ exit(0);
 
 sub purify {
   my($dna) = @_;
+  $dna =~ s/[^ATGCN\n\r]/N/gi if $opt{n};
   $dna = lc($dna) if $opt{l};
   $dna = uc($dna) if $opt{u};
-  $dna =~ s/[^ATGCN\n\r]/N/g if $opt{n};
   return $dna;
 }
 

@@ -6,7 +6,7 @@ use File::Basename;
 
 #......................................................................................
 
-our $VERSION = "0.1.1";
+our $VERSION = "0.1.2";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -73,7 +73,7 @@ msg("Read $lines lines from input");
 # detect format from first line
 if ($line[0] =~ m/^LOCUS/) { parse_genbank() }
 elsif ($line[0] =~ m/^>/) { parse_fasta() }
-elsif ($line[0] =~ m/^#.*?gff/) { parse_gff() }
+elsif ($line[0] =~ m/^##gff/) { parse_gff() }
 else { err("Could not determine input sequence format: $line[0]") }
 
 msg("Done.");

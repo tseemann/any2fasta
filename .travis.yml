@@ -1,0 +1,18 @@
+language: perl
+
+sudo: false
+
+perl:
+    - "5.26"
+
+install:
+    - "export PATH=$PWD:$PATH"
+
+script:
+    - "! any2fasta"
+    - "any2fasta -v"
+    - "any2fasta -h"
+    - "! any2fasta -x"
+    - "any2fasta test.gbk | grep '>'"
+    - "any2fasta test.gff | grep '>'"
+    - "any2fasta test.fna | grep '>'"

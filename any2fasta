@@ -6,7 +6,7 @@ use File::Basename;
 
 #......................................................................................
 
-our $VERSION = "0.1.0";
+our $VERSION = "0.1.1";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -66,7 +66,9 @@ msg("This is $EXE $VERSION");
 
 # read whole file
 my @line = <ARGV>;
-msg("Read", 0+@line, "lines from input");
+my $lines = scalar(@line);
+$lines or err("The input is empty");
+msg("Read $lines lines from input");
 
 # detect format from first line
 if ($line[0] =~ m/^LOCUS/) { parse_genbank() }

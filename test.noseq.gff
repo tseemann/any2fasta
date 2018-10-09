@@ -1,0 +1,10 @@
+##gff-version 3
+BAC_00001	Prodigal:2.6	CDS	326	1240	.	-	0	ID=BAC_00001;Name=dmlR_1;gene=dmlR_1;inference=ab initio prediction:Prodigal:2.6,similar to AA sequence:UniProtKB:P76250;locus_tag=BAC_00001;product=HTH-type transcriptional regulator DmlR
+BAC_00001	Prodigal:2.6	CDS	1502	2281	.	+	0	ID=BAC_00002;inference=ab initio prediction:Prodigal:2.6;locus_tag=BAC_00002;product=hypothetical protein
+BAC_00001	Prodigal:2.6	CDS	2359	3129	.	+	0	ID=BAC_00003;eC_number=2.1.1.-;Name=ycgJ;gene=ycgJ;inference=ab initio prediction:Prodigal:2.6,similar to AA sequence:UniProtKB:O31474;locus_tag=BAC_00003;product=putative methyltransferase YcgJ
+BAC_00001	Prodigal:2.6	CDS	3177	4397	.	-	0	ID=BAC_00004;eC_number=4.2.2.-;Name=mltD;dbxref=COG:COG0741;gene=mltD;inference=ab initio prediction:Prodigal:2.6,similar to AA sequence:UniProtKB:P0AEZ7;locus_tag=BAC_00004;product=Membrane-bound lytic murein transglycosylase D
+BAC_00001	Prodigal:2.6	CDS	4607	5362	.	-	0	ID=BAC_00005;eC_number=3.1.2.6;Name=gloB;dbxref=COG:COG0491;gene=gloB;inference=ab initio prediction:Prodigal:2.6,similar to AA sequence:UniProtKB:P0AC84;locus_tag=BAC_00005;product=Hydroxyacylglutathione hydrolase GloB
+BAC_00001	Prodigal:2.6	CDS	5396	6118	.	+	0	ID=BAC_00006;inference=ab initio prediction:Prodigal:2.6;locus_tag=BAC_00006;product=hypothetical protein
+BAC_00001	Prodigal:2.6	CDS	6115	6582	.	-	0	ID=BAC_00007;eC_number=3.1.26.4;Name=rnhA;dbxref=COG:COG0328;gene=rnhA;inference=ab initio prediction:Prodigal:2.6,similar to AA sequence:UniProtKB:P0A7Y4;locus_tag=BAC_00007;product=Ribonuclease HI
+BAC_00001	Prodigal:2.6	CDS	6638	7378	.	+	0	ID=BAC_00008;eC_number=2.7.7.7;Name=dnaQ;dbxref=COG:COG0847;gene=dnaQ;inference=ab initio prediction:Prodigal:2.6,similar to AA sequence:UniProtKB:P03007;locus_tag=BAC_00008;product=DNA polymerase III subunit epsilon
+BAC_00001	Aragorn:1.2	tRNA	7511	7587	.	+	.	ID=BAC_00009;inference=COORDINATES:profile:Aragorn:1.2;locus_tag=BAC_00009;product=tRNA-Asp(gtc)

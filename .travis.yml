@@ -16,3 +16,7 @@ script:
     - "any2fasta test.gbk | grep '>'"
     - "any2fasta test.gff | grep '>'"
     - "any2fasta test.fna | grep '>'"
+    - "any2fasta    test.fna | grep 'CRYANT'"
+    - "any2fasta -n test.fna | grep 'CNNANT'"
+    - "any2fasta -l test.gbk | grep 'taagaatgagtagaaggttttga'"
+    - "any2fasta -u test.gbk | grep 'TAAGAATGAGTAGAAGGTTTTGA'"

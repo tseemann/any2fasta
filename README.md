@@ -40,7 +40,7 @@ or higher. It only uses core modules, so no CPAN needed.
 ```
 ### Homebrew
 ```
-% brew install brewsci/bio/any2fasta
+% brew install brewsci/bio/any2fasta # COMING SOON
 ```
 ### Conda
 ```

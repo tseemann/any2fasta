@@ -17,12 +17,12 @@ between my `.gbk` and `.fna` versions of files in my pipelines.
 Then you may wonder why I didn't use Bioperl or Biopython. Well they are
 heavyweight libraries, and actually very slow at parsing Genbank files.
 This script uses only core Perl modules, has no other dependencies, and
-runs very fast.
+runs very quickly.
 
 It supports the following input formats:
-1. Genbank flat file, typically `.gb`, `.gbk`, `.gbff`, starts with `LOCUS`
-2. GFF with sequence, typically `.gff`, `.gff3`, starts with `##gff`
-3. FASTA DNA, typically `.fasta`, `.fa`, `.fna`, `.ffn`, starts with `>`
+1. Genbank flat file, typically `.gb`, `.gbk`, `.gbff` (starts with `LOCUS`)
+2. GFF with sequence, typically `.gff`, `.gff3` (starts with `##gff`)
+3. FASTA DNA, typically `.fasta`, `.fa`, `.fna`, `.ffn` (starts with `>`)
 
 Note that the file extensions are **not** used to guess the format;
 rather the first line is used.
@@ -107,3 +107,4 @@ Submit feedback to the [Issue Tracker](https://github.com/tseemann/any2fasta/iss
 ## Author
 
 [Torsten Seemann](http://tseemann.github.io/)
+

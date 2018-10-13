@@ -6,7 +6,7 @@ use File::Basename;
 
 #......................................................................................
 
-our $VERSION = "0.1.3";
+our $VERSION = "0.1.4";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -112,7 +112,7 @@ sub parse_gff {
   my $at_seq = 0;
   for my $line (@line) {
     $at_seq++ if $line =~ m/^>/;
-    print $line if $at_seq;;
+    print purify($line) if $at_seq;;
   }
   if ($at_seq > 0) {
     msg("Found $at_seq sequences in GFF file.");

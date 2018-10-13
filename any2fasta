@@ -6,7 +6,7 @@ use File::Basename;
 
 #......................................................................................
 
-our $VERSION = "0.1.2";
+our $VERSION = "0.1.3";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -17,8 +17,8 @@ sub usage {
   $errcode ||= 0;
   my $ofh = $errcode ? \*STDERR : \*STDOUT;
   print $ofh 
-    "SYNOPSIS\n  Convert a Genbank/FASTA/GFF file into a FASTA file\n",
-    "USAGE\n  $EXE [options] file.{gb,fa,gff} > output.fasta\n",
+    "SYNOPSIS\n  Convert a Genbank/FASTA/GFF/GFA file into a FASTA file\n",
+    "USAGE\n  $EXE [options] file.{gb,fa,gff,gfa} > output.fasta\n",
     "OPTIONS\n",
     "  -h       Print this help\n",
     "  -v       Print version and exit\n",
@@ -74,6 +74,7 @@ msg("Read $lines lines from input");
 if ($line[0] =~ m/^LOCUS/) { parse_genbank() }
 elsif ($line[0] =~ m/^>/) { parse_fasta() }
 elsif ($line[0] =~ m/^##gff/) { parse_gff() }
+elsif ($line[0] =~ m/^[A-Z]\t\S+/) { parse_gfa() } 
 else { err("Could not determine input sequence format: $line[0]") }
 
 msg("Done.");
@@ -118,6 +119,23 @@ sub parse_gff {
   }
   else {
     err("No sequences found in GFF file!");
+  }
+}
+
+#......................................................................................
+# https://github.com/GFA-spec/GFA-spec/blob/master/GFA1.md 
+# https://github.com/GFA-spec/GFA-spec/blob/master/GFA2.md 
+
+sub parse_gfa {
+  my %S;
+  my %P;
+  for my $line (@line) {
+    my(@x) = split m/\t/, $line;
+    # this is NOT the original contigs, rather the unitigs
+    # need to parse L (link) and P (path) to reconstruct the contigs
+    if ($x[0] eq 'S') {
+      print ">", $x[1], "\n", purify($x[2]), "\n";
+    }
   }
 }
 

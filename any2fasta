@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.2.1";
+our $VERSION = "0.2.2";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -18,6 +18,7 @@ sub usage {
   $errcode ||= 0;
   my $ofh = $errcode ? \*STDERR : \*STDOUT;
   print $ofh 
+    "NAME\n  $EXE $VERSION\n",
     "SYNOPSIS\n  Convert a Genbank/FASTA/GFF/GFA file into a FASTA file\n",
     "USAGE\n  $EXE [options] file.{gb,fa,gff,gfa}[.gz,bz2,zip] > output.fasta\n",
     "OPTIONS\n",
@@ -65,22 +66,32 @@ sub err {
 
 msg("This is $EXE $VERSION");
 
-my $fname = shift(@ARGV);
-msg("Opening: $fname");
+# loop over all positional command line arguments
+my $processed=0;
 
-# read whole file, compressed or otherwise
-my $unzip = IO::Uncompress::AnyUncompress->new($fname);
-my @line = <$unzip>;
-my $lines = scalar(@line);
-$lines or err("The input is empty");
-msg("Read $lines lines from input");
+for my $fname (@ARGV) {
+  msg("Opening: $fname");
+  -d $fname and err("'$fname' is a directory not a file");
+  -r $fname or err("'$fname' is not readable");
 
-# detect format from first line
-if ($line[0] =~ m/^LOCUS/) { parse_genbank() }
-elsif ($line[0] =~ m/^>/) { parse_fasta() }
-elsif ($line[0] =~ m/^##gff/) { parse_gff() }
-elsif ($line[0] =~ m/^[A-Z]\t\S+/) { parse_gfa() } 
-else { err("Could not determine input sequence format: $line[0]") }
+  # read file compressed or otherwise
+  my $unzip = IO::Uncompress::AnyUncompress->new($fname);
+  my @line = <$unzip>; # slurp all lines
+  my $lines = scalar(@line);
+  $lines or err("The input is empty");
+  msg("Read $lines lines from '$fname'");
+
+  # detect format from first line
+  if ($line[0] =~ m/^LOCUS/) { parse_genbank(\@line) }
+  elsif ($line[0] =~ m/^>/) { parse_fasta(\@line) }
+  elsif ($line[0] =~ m/^##gff/) { parse_gff(\@line) }
+  elsif ($line[0] =~ m/^[A-Z]\t\S+/) { parse_gfa(\@line) }
+  else { err("Could not determine input sequence format: $line[0]") }
+
+  $processed++;
+}
+
+msg("Processed $processed files.");
 
 msg("Done.");
 exit(0);
@@ -98,8 +109,9 @@ sub purify {
 #......................................................................................
 
 sub parse_fasta {
+  my($lines) = @_;
   my $count=0;
-  for my $line (@line) {
+  for my $line (@$lines) {
     if ($line =~ m/^>/) {
       $count++;
     }
@@ -114,8 +126,9 @@ sub parse_fasta {
 #......................................................................................
 
 sub parse_gff {
+  my($lines) = @_;
   my $at_seq = 0;
-  for my $line (@line) {
+  for my $line (@$lines) {
     $at_seq++ if $line =~ m/^>/;
     print purify($line) if $at_seq;;
   }
@@ -132,9 +145,10 @@ sub parse_gff {
 # https://github.com/GFA-spec/GFA-spec/blob/master/GFA2.md 
 
 sub parse_gfa {
+  my($lines) = @_;
   my %S;
   my %P;
-  for my $line (@line) {
+  for my $line (@$lines) {
     my(@x) = split m/\t/, $line;
     # this is NOT the original contigs, rather the unitigs
     # need to parse L (link) and P (path) to reconstruct the contigs
@@ -147,6 +161,7 @@ sub parse_gfa {
 #......................................................................................
 
 sub parse_genbank {
+  my($lines) = @_;
   my $acc = '';
   my $accver = '';
   my $org = '';
@@ -155,7 +170,7 @@ sub parse_genbank {
   my $dna = '';
   my $count = 0;
 
-  foreach (@line) {
+  foreach (@$lines) {
     chomp;
     if (m{^//}) {
       my $id = $opt{f} || $FORMAT;
@@ -198,3 +213,4 @@ sub parse_genbank {
   }
   msg("Found $count sequences in GENBANK file.");
 }
+

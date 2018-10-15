@@ -59,13 +59,13 @@ or higher. It only uses core modules, so no CPAN needed.
 
 ```
 % ./any2fasta -v
-any2fasta 0.2.0
+any2fasta 0.2.2
 
 % ./any2fasta -h
 SYNOPSIS
   Convert a Genbank/FASTA/GFF/GFA file into a FASTA file
 USAGE
-  any2fasta [options] file.{gb,fa,gff,gfa} > output.fasta
+  any2fasta [options] file.{gb,fa,gff,gfa}[.gz,bz2,zip] [...] > output.fasta
 OPTIONS
   -h       Print this help
   -v       Print version and exit

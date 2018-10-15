@@ -7,9 +7,10 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.2.2";
+our $VERSION = "0.2.3";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
+our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 
 #......................................................................................
 
@@ -71,6 +72,7 @@ my $processed=0;
 
 for my $fname (@ARGV) {
   msg("Opening: $fname");
+  $fname = $STDIN if $fname eq '-';
   -d $fname and err("'$fname' is a directory not a file");
   -r $fname or err("'$fname' is not readable");
 

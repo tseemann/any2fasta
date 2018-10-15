@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.2.0";
+our $VERSION = "0.2.1";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -19,7 +19,7 @@ sub usage {
   my $ofh = $errcode ? \*STDERR : \*STDOUT;
   print $ofh 
     "SYNOPSIS\n  Convert a Genbank/FASTA/GFF/GFA file into a FASTA file\n",
-    "USAGE\n  $EXE [options] file.{gb,fa,gff,gfa} > output.fasta\n",
+    "USAGE\n  $EXE [options] file.{gb,fa,gff,gfa}[.gz,bz2,zip] > output.fasta\n",
     "OPTIONS\n",
     "  -h       Print this help\n",
     "  -v       Print version and exit\n",

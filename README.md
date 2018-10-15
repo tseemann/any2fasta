@@ -25,8 +25,10 @@ It supports the following input formats:
 3. FASTA DNA, typically `.fasta`, `.fa`, `.fna`, `.ffn` (starts with `>`)
 4. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`) 
 
-Note that the file extensions are **not** used to guess the format;
-rather the first line is used.
+Files may be compressed with:
+1. gzip, typically `.gz`
+2. bzip2, typically `.bz2`
+3. zip, typically `.zip`
 
 ## Installation
 
@@ -57,7 +59,7 @@ or higher. It only uses core modules, so no CPAN needed.
 
 ```
 % ./any2fasta -v
-any2fasta 0.1.3
+any2fasta 0.2.0
 
 % ./any2fasta -h
 SYNOPSIS
@@ -87,6 +89,12 @@ END
 % any2fasta in.fasta > out.fasta  # should behave like "cat"
 
 % any2fasta prokka.gff > prokka.fna  # only if GFF has FASTA appended
+
+% any2fasta - < file.gb > file.fasta  # '-' means stdin
+
+% anyfasta genes.gff.gz > genes.ffn  # automatically decompresses
+
+% any2fasta -f '%v' fungus.gbff.bz2 | grep '>'  # list IDS in BZIP2 gb file
 ```
 
 ## Options

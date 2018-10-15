@@ -3,10 +3,11 @@ use strict;
 use warnings;
 use Getopt::Std;
 use File::Basename;
+use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.1.4";
+our $VERSION = "0.2.0";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 
@@ -64,8 +65,12 @@ sub err {
 
 msg("This is $EXE $VERSION");
 
-# read whole file
-my @line = <ARGV>;
+my $fname = shift(@ARGV);
+msg("Opening: $fname");
+
+# read whole file, compressed or otherwise
+my $unzip = IO::Uncompress::AnyUncompress->new($fname);
+my @line = <$unzip>;
 my $lines = scalar(@line);
 $lines or err("The input is empty");
 msg("Read $lines lines from input");

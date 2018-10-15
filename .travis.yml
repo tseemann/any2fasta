@@ -5,6 +5,15 @@ sudo: false
 perl:
     - "5.26"
 
+addons:
+    apt:
+        packages:
+            - gzip
+            - bzip2
+            - zip
+            - unzip
+            - xz
+            
 install:
     - "export PATH=$PWD:$PATH"
 
@@ -26,3 +35,8 @@ script:
     - "any2fasta -u test.gbk | grep 'TAAGAATGAGTAGAAGGTTTTGA'"
     - "any2fasta -f '%v' test.gbk  | grep -m 1 -F '>NZ_AHMY02000075.1'"
     - "any2fasta -f '%o' test.gbk  | grep -m 1 -F '>Leptospira'"
+    - "any2fasta - < test.gbk  | grep -m 1 -F '>Leptospira'"
+    - "gzip -c test.gbk | any2fasta - | grep -m 1 -F '>Leptospira'"
+    - "bzip2 -c test.gbk | any2fasta - | grep -m 1 -F '>Leptospira'"
+    - "zip test.gbk.zip test.gbk"
+    - "any2fasta test.gbk.zip | grep -m 1 -F '>Leptospira'"

@@ -12,7 +12,6 @@ addons:
             - bzip2
             - zip
             - unzip
-            - xz
             
 install:
     - "export PATH=$PWD:$PATH"

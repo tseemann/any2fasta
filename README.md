@@ -94,6 +94,8 @@ END
 
 % anyfasta genes.gff.gz > genes.ffn  # automatically decompresses
 
+% any2fasta 1.gb 2.fa.gz 3.gff.bz2 - > out.fa  # multiple files and stdin
+
 % any2fasta -f '%v' fungus.gbff.bz2 | grep '>'  # list IDS in BZIP2 gb file
 ```
 

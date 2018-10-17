@@ -21,7 +21,7 @@ sub usage {
   print $ofh 
     "NAME\n  $EXE $VERSION\n",
     "SYNOPSIS\n  Convert a Genbank/FASTA/GFF/GFA file into a FASTA file\n",
-    "USAGE\n  $EXE [options] file.{gb,fa,gff,gfa}[.gz,bz2,zip] > output.fasta\n",
+    "USAGE\n  $EXE [options] file.{gb,fa,fq,gff,gfa}[.gz,bz2,zip] > output.fasta\n",
     "OPTIONS\n",
     "  -h       Print this help\n",
     "  -v       Print version and exit\n",
@@ -86,6 +86,7 @@ for my $fname (@ARGV) {
   # detect format from first line
   if ($line[0] =~ m/^LOCUS/) { parse_genbank(\@line) }
   elsif ($line[0] =~ m/^>/) { parse_fasta(\@line) }
+  elsif ($line[0] =~ m/^@/) { parse_fastq(\@line) }
   elsif ($line[0] =~ m/^##gff/) { parse_gff(\@line) }
   elsif ($line[0] =~ m/^[A-Z]\t\S+/) { parse_gfa(\@line) }
   else { err("Could not determine input sequence format: $line[0]") }
@@ -123,6 +124,20 @@ sub parse_fasta {
     print $line;
   }
   msg("Found $count sequences in FASTA file.");
+}
+
+#......................................................................................
+
+sub parse_fastq {
+  my($lines) = @_;
+  my $count=0;
+  # jump 4 lines at a time
+  for ( my $i=0 ; $i < $#{$lines} ; $i+=4 ) {
+    print ">", substr($lines->[$i], 1);
+    print purify( $lines->[$i+1] );
+    $count++;
+  }
+  msg("Found $count sequences in FASTQ file.");
 }
 
 #......................................................................................

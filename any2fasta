@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.2.3";
+our $VERSION = "0.2.5";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
@@ -115,6 +115,7 @@ sub parse_fasta {
   my($lines) = @_;
   my $count=0;
   for my $line (@$lines) {
+    next if $line =~ m/^\s*$/;
     if ($line =~ m/^>/) {
       $count++;
     }

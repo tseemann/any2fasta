@@ -42,3 +42,4 @@ script:
     - "bzip2 -c test.gbk | any2fasta - | grep -m 1 -F 'NZ_AHMY02000074'"
     - "zip test.gbk.zip test.gbk"
     - "any2fasta test.gbk.zip | grep -m 1 -F 'NZ_AHMY02000074'"
+    - echo -e ">1\nA\n\n>2\nT\n" | ./any2fasta -q - | wc -l | grep '^4$'

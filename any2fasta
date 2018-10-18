@@ -7,9 +7,8 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.3.4";
+our $VERSION = "0.4.0";
 our $EXE = basename($0);
-our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 
 #......................................................................................
@@ -26,15 +25,9 @@ sub usage {
     "  -h       Print this help\n",
     "  -v       Print version and exit\n",
     "  -q       No output while running, only errors\n",
-    "  -f STR   FASTA ID format, default='$FORMAT' (Genbank input only)\n",
     "  -n       Replace ambiguous IUPAC letters with 'N'\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
-    "FORMAT CODES\n",
-    "  %a    Accession  eg. NC_000913\n",
-    "  %v    Accession with version  eg. NC_000913.1\n",
-    "  %o    Organism  eg. Escherichia coli str. K-12 substr. MG1655\n",
-    "  %d    Definition  eg. Escherichia coli str. K-12 substr. MG1655, complete genome\n",
     "END\n";
   exit($errcode);
 }
@@ -47,7 +40,7 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnluf:', \%opt) or exit(-1);
+getopts('vhqnlu', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
@@ -198,51 +191,36 @@ sub parse_gfa {
 sub parse_genbank {
   my($lines) = @_;
   my $acc = '';
-  my $accver = '';
-  my $org = '';
-  my $def = '';
-  my $in_seq = 0;
   my $dna = '';
+  my $in_seq = 0;
   my $count = 0;
 
   foreach (@$lines) {
     chomp;
     if (m{^//}) {
-      my $id = $opt{f} || $FORMAT;
-      $id =~ s/%a/$acc/g;
-      $id =~ s/%v/$accver/g;
-      $id =~ s/%o/$org/g;
-      $id =~ s/%d/$def/;
       $dna = purify($dna);
-      print ">", $id, "\n", $dna;
+      print ">", $acc, "\n", purify($dna);
       $count++;
       $in_seq = 0;
-      $dna =  $acc = $accver = $org = $def = '';
+      $dna = $acc = '';
       next;
     }
     elsif (m/^ORIGIN/) {
+      # ORIGIN
       $in_seq = 1;
       next;
     }
     
     if ($in_seq) {
+      #       421 ctctcaaact aaagccgtct cactctccat gagtcgttcg acagatcgcg ttttaaattg
       my $s = substr $_, 10;  # trim the coordinate prefix
       $s =~ s/\s//g;
-      $dna .= $s;
-      $dna .= "\n";
+      $dna .= $s . "\n";
     }
     else {
-      if (m/^VERSION\s+(\S+?\.\d+)\b/) {
-        $accver = $1;
-      }
-      elsif (m/^SOURCE\s+(.*)$/) {
-        $org = $1;
-      }
-      elsif (m/^LOCUS\s+(\S+)/) {
+      # LOCUS  NZ_AHMY02000075  683 bp   DNA   linear   CON 23-NOV-2017
+      if (m/^LOCUS\s+(\S+)/) {
         $acc = $1;
-      }
-      elsif (m/^DEFINITION\s+(.*)$/) {
-        $def = $1;
       }
     }
   }

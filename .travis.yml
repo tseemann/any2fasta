@@ -41,8 +41,6 @@ script:
     - "any2fasta -u test.gbk | grep 'TAAGAATGAGTAGAAGGTTTTGA'"
     - "any2fasta -u test.embl | grep 'K02675'"
     - "any2fasta -q -l -n test.fq | wc -l | grep '^2000$'"
-    - "any2fasta -f '%v' test.gbk  | grep -m 1 -F '>NZ_AHMY02000075.1'"
-    - "any2fasta -f '%o' test.gbk  | grep -m 1 -F '>Leptospira'"
     - "any2fasta - < test.gbk  | grep -m 1 -F 'NZ_AHMY02000074'"
     - "gzip -c test.gbk | any2fasta - | grep -m 1 -F 'NZ_AHMY02000074'"
     - "bzip2 -c test.gbk | any2fasta - | grep -m 1 -F 'NZ_AHMY02000074'"

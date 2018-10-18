@@ -64,23 +64,19 @@ or higher. It only uses core modules, so no CPAN needed.
 any2fasta 0.2.2
 
 % ./any2fasta -h
+NAME
+  any2fasta 0.4.0
 SYNOPSIS
-  Convert a Genbank/FASTA/GFF/GFA file into a FASTA file
+  Convert various sequence formats into FASTA
 USAGE
-  any2fasta [options] file.{gb,fa,gff,gfa}[.gz,bz2,zip] [...] > output.fasta
+  any2fasta [options] file.{gb,fa,fq,gff,gfa,clw,sth}[.gz,bz2,zip] > output.fasta
 OPTIONS
   -h       Print this help
   -v       Print version and exit
   -q       No output while running, only errors
-  -f STR   FASTA ID format, default='%a %d' (Genbank input only)
   -n       Replace ambiguous IUPAC letters with 'N'
   -l       Lowercase the sequence
   -u       Uppercase the sequence
-FORMAT CODES
-  %a    Accession  eg. NC_000913
-  %v    Accession with version  eg. NC_000913.1
-  %o    Organism  eg. Escherichia coli str. K-12 substr. MG1655
-  %d    Definition  eg. Escherichia coli str. K-12 substr. MG1655, complete genome
 END
 ```
 
@@ -98,8 +94,6 @@ END
 
 % any2fasta 1.gb 2.fa.gz 3.gff.bz2 - > out.fa  # multiple files and stdin
 
-% any2fasta -f '%v' fungus.gbff.bz2 | grep '>'  # list IDS in BZIP2 gb file
-
 % any2fasta R1.fq.gz | bzip2 > R1.fa.bz2  # 'seqtk seq -A' is much faster
 ```
 
@@ -109,7 +103,6 @@ END
 * `-l` will lowercase all the letters
 * `-u` will uppercase all the letters
 * `-q` will prevent logging messages being printed
-* `-f` decides how the FASTA ID will be printed when GENBANK is input
 
 ## Issues
 

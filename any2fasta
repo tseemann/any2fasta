@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.3.3";
+our $VERSION = "0.3.4";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
@@ -83,7 +83,7 @@ my @formats = (
 my $processed=0;
 
 for my $fname (@ARGV) {
-  msg("Opening: $fname");
+  msg("Opening '$fname'");
   $fname = $STDIN if $fname eq '-';
   -d $fname and err("'$fname' is a directory not a file");
   -r $fname or err("'$fname' is not readable");
@@ -103,7 +103,8 @@ for my $fname (@ARGV) {
       my $lines = scalar(@line);
       msg("Read $lines lines from '$fname'");
       # run the parser
-      $fmt->[2]->(\@line);
+      my $nseq = $fmt->[2]->( \@line );
+      msg("Wrote $nseq sequences from", $fmt->[0], "file.");
       $ok++;
       last;
     }
@@ -142,7 +143,7 @@ sub parse_fasta {
     }
     print $line;
   }
-  msg("Found $count sequences in FASTA file.");
+  return $count;
 }
 
 #......................................................................................
@@ -156,7 +157,7 @@ sub parse_fastq {
     print purify( $lines->[$i+1] );
     $count++;
   }
-  msg("Found $count sequences in FASTQ file.");
+  return $count;
 }
 
 #......................................................................................
@@ -168,12 +169,7 @@ sub parse_gff {
     $at_seq++ if $line =~ m/^>/;
     print purify($line) if $at_seq;;
   }
-  if ($at_seq > 0) {
-    msg("Found $at_seq sequences in GFF file.");
-  }
-  else {
-    err("No sequences found in GFF file!");
-  }
+  return $at_seq;
 }
 
 #......................................................................................
@@ -184,14 +180,17 @@ sub parse_gfa {
   my($lines) = @_;
   my %S;
   my %P;
+  my $count=0;
   for my $line (@$lines) {
     my(@x) = split m/\t/, $line;
     # this is NOT the original contigs, rather the unitigs
     # need to parse L (link) and P (path) to reconstruct the contigs
     if ($x[0] eq 'S') {
       print ">", $x[1], "\n", purify($x[2]), "\n";
+      $count++;
     }
   }
+  return $count;
 }
 
 #......................................................................................
@@ -247,7 +246,7 @@ sub parse_genbank {
       }
     }
   }
-  msg("Found $count sequences in GENBANK file.");
+  return $count;
 }
 
 #......................................................................................
@@ -287,7 +286,7 @@ sub parse_embl {
       }
     }
   }
-  msg("Found $count sequences in EMBL file.");
+  return $count;
 }
 
 #......................................................................................
@@ -302,7 +301,7 @@ sub parse_clustal {
   for my $id (sort keys %seq) {
     print ">", $id, "\n", purify($seq{$id});
   }
-  msg("Found", scalar(keys %seq), "sequences in CLUSTAL file.");
+  return scalar(keys %seq);
 }
 
 #......................................................................................
@@ -321,7 +320,7 @@ sub parse_stockholm {
   for my $id (sort keys %seq) {
     print ">", $id, "\n", purify($seq{$id});
   }
-  msg("Found", scalar(keys %seq), "sequences in STOCKHOLM file.");
+  return scalar(keys %seq);
 }
 
 #......................................................................................

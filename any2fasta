@@ -7,9 +7,10 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.4.0";
+our $VERSION = "0.4.2";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
+our $URL = 'https://github.com/tseemann/any2fasta';
 
 #......................................................................................
 
@@ -28,6 +29,7 @@ sub usage {
     "  -n       Replace ambiguous IUPAC letters with 'N'\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
+    "HOMEPAGE\n  $URL\n",
     "END\n";
   exit($errcode);
 }

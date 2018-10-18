@@ -20,6 +20,7 @@ script:
     - "! any2fasta"
     - "any2fasta -v"
     - "any2fasta -h"
+    - "any2fasta -h | grep github"
     - "! any2fasta -x"
     - "any2fasta /dev/null 2>&1 | grep 'ERROR'"
     - "any2fasta test.noseq.gff 2>&1 | grep 'ERROR'"

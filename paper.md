@@ -28,13 +28,14 @@ These formats often need to be converted to FASTA for use in
 downstream software that only handles the FASTA format.
 Common tools for converting for format conversion are
 EMBOSS `seqret` [@rice2000emboss] and `readseq` [@gilbert2003readseq].
-Unfortunately these tools mangle sequence identifiers containing
-characters such as `|` and `.` and offer no way to fix the behaviour.
+Unfortunately, these tools mangle sequence identifiers containing
+characters such as `|` and `.`. Furthermore, they offer no way to fix the behaviour 
+and have not seen any development activity in years.
 Custom scripts using the Bioperl [@stajich2002bioperl] 
 or Biopython [@cock2009biopython] libraries are available,
 but these are heavyweight solutions for a relatively simple problem.
 
-Here we present a new software tool called `any2fasta` written
+Here, I present a new software tool called `any2fasta` written
 as a single Perl script with no dependencies. It can read the
 Genbank, EMBL, GFF, FASTA, FASTQ and GFA sequence formats, 
 as well as the CLUSTAL and STOCKHOLM sequence alignment formats. 

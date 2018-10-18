@@ -98,6 +98,7 @@ for my $fname (@ARGV) {
       # run the parser
       my $nseq = $fmt->[2]->( \@line );
       msg("Wrote $nseq sequences from", $fmt->[0], "file.");
+      $nseq or err("No sequences found in '$fname'");
       $ok++;
       last;
     }

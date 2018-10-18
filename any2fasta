@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.2.6";
+our $VERSION = "0.3.0";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
@@ -67,6 +67,16 @@ sub err {
 
 msg("This is $EXE $VERSION");
 
+# regexp to function mapping
+my @formats = (
+  [ 'Genbank', qr/^LOCUS\s/, \&parse_genbank ],
+  [ 'EMBL',    qr/^ID\s/,    \&parse_embl    ],
+  [ 'GFF',     qr/^##gff/,   \&parse_gff     ],
+  [ 'FASTA',   qr/^>/,       \&parse_fasta   ],
+  [ 'FASTQ',   qr/^@/,       \&parse_fastq   ],
+  [ 'GFA',     qr/^[A-Z]\t/, \&parse_gfa     ],
+);
+
 # loop over all positional command line arguments
 my $processed=0;
 
@@ -84,14 +94,16 @@ for my $fname (@ARGV) {
   msg("Read $lines lines from '$fname'");
 
   # detect format from first line
-  if ($line[0] =~ m/^LOCUS\s/) { parse_genbank(\@line) }
-  elsif ($line[0] =~ m/^ID\s/) { parse_embl(\@line) }
-  elsif ($line[0] =~ m/^>/) { parse_fasta(\@line) }
-  elsif ($line[0] =~ m/^@/) { parse_fastq(\@line) }
-  elsif ($line[0] =~ m/^##gff/) { parse_gff(\@line) }
-  elsif ($line[0] =~ m/^[A-Z]\t\S+/) { parse_gfa(\@line) }
-  else { err("Could not determine input sequence format: $line[0]") }
-
+  my $ok=0;
+  for my $fmt (@formats) {
+    if ($line[0] =~ $fmt->[1]) {
+      msg("Detected", $fmt->[0], "format");
+      $fmt->[2]->(\@line);
+      $ok++;
+      last;
+    }
+  }
+  $ok or err("Could not determine input sequence format: $line[0]");
   $processed++;
 }
 

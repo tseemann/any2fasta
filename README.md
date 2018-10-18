@@ -10,8 +10,8 @@ Convert various sequence formats to FASTA
 
 You may wonder why this tool even exists.  Well, I tried to do the right
 thing and use established tools like `readseq` and `seqret` from EMBOSS, but
-they both mangled IDs containing `|` characters or even `.` characters, and
-there is no way to change this behaviour.  This resulted in inconsitences
+they both mangled IDs containing `|` or `.` characters, and
+there is no way to fix this behaviour.  This resulted in inconsitences
 between my `.gbk` and `.fna` versions of files in my pipelines.
 
 Then you may wonder why I didn't use Bioperl or Biopython. Well they are
@@ -20,14 +20,18 @@ This script uses only core Perl modules, has no other dependencies, and
 runs very quickly.
 
 It supports the following input formats:
+
 1. Genbank flat file, typically `.gb`, `.gbk`, `.gbff` (starts with `LOCUS`)
 2. EMBL flat file, typically `.embl`, (starts with `ID`)
 3. GFF with sequence, typically `.gff`, `.gff3` (starts with `##gff`)
 4. FASTA DNA, typically `.fasta`, `.fa`, `.fna`, `.ffn` (starts with `>`)
-5. FASTQ DNA, typically `.fastq`, `.fq` (starts with '@')
-6. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`)
+5. FASTQ DNA, typically `.fastq`, `.fq` (starts with `@`)
+6. CLUSTAL alignments, typically `.clw`, `.clu` (starts with `CLUSTAL` or `MUSCLE`)
+7. STOCKHOLM alignments, typically `.sth` (starts with `# STOCKHOLM`)
+8. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`)
 
 Files may be compressed with:
+
 1. gzip, typically `.gz`
 2. bzip2, typically `.bz2`
 3. zip, typically `.zip`
@@ -65,7 +69,7 @@ any2fasta 0.2.2
 
 % ./any2fasta -h
 NAME
-  any2fasta 0.4.0
+  any2fasta 0.4.2
 SYNOPSIS
   Convert various sequence formats into FASTA
 USAGE
@@ -95,11 +99,15 @@ END
 % any2fasta 1.gb 2.fa.gz 3.gff.bz2 - > out.fa  # multiple files and stdin
 
 % any2fasta R1.fq.gz | bzip2 > R1.fa.bz2  # 'seqtk seq -A' is much faster
+
+% any2fasta -q 23S.clw > 23S.aln  # gaps '-' will be preserved
+
+% any2fasta pfam4321.sth > pfam4321.aln  # '.' gaps will become '-'
 ```
 
 ## Options
 
-* `-n` replaces any characters that aren't A,C,G,T with N.
+* `-n` replaces any characters that aren't A,C,G,T with N (gaps preserved)
 * `-l` will lowercase all the letters
 * `-u` will uppercase all the letters
 * `-q` will prevent logging messages being printed

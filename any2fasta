@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.3.0";
+our $VERSION = "0.3.1";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
@@ -86,24 +86,27 @@ for my $fname (@ARGV) {
   -d $fname and err("'$fname' is a directory not a file");
   -r $fname or err("'$fname' is not readable");
 
-  # read file compressed or otherwise
+  # read first line to see if we have any data
   my $unzip = IO::Uncompress::AnyUncompress->new($fname);
-  my @line = <$unzip>; # slurp all lines
-  my $lines = scalar(@line);
-  $lines or err("The input is empty");
-  msg("Read $lines lines from '$fname'");
+  my $header = scalar(<$unzip>); # read first line
+  $header or err("The input appears to be empty");
 
   # detect format from first line
   my $ok=0;
   for my $fmt (@formats) {
-    if ($line[0] =~ $fmt->[1]) {
+    if ($header =~ $fmt->[1]) {
       msg("Detected", $fmt->[0], "format");
+      # read in the rest of the file now
+      my @line = ($header, <$unzip>);
+      my $lines = scalar(@line);
+      msg("Read $lines lines from '$fname'");
+      # run the parser
       $fmt->[2]->(\@line);
       $ok++;
       last;
     }
   }
-  $ok or err("Could not determine input sequence format: $line[0]");
+  $ok or err("Unfamilar format with first line: $header");
   $processed++;
 }
 

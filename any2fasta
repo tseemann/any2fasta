@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.3.2";
+our $VERSION = "0.3.3";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
@@ -20,8 +20,8 @@ sub usage {
   my $ofh = $errcode ? \*STDERR : \*STDOUT;
   print $ofh 
     "NAME\n  $EXE $VERSION\n",
-    "SYNOPSIS\n  Convert Genbank/EMBL/FASTA/FASTQ/GFF/GFA/CLUSTAL into FASTA\n",
-    "USAGE\n  $EXE [options] file.{gb,fa,fq,gff,gfa,clw}[.gz,bz2,zip] > output.fasta\n",
+    "SYNOPSIS\n  Convert various sequence formats into FASTA\n",
+    "USAGE\n  $EXE [options] file.{gb,fa,fq,gff,gfa,clw,sth}[.gz,bz2,zip] > output.fasta\n",
     "OPTIONS\n",
     "  -h       Print this help\n",
     "  -v       Print version and exit\n",
@@ -69,13 +69,14 @@ msg("This is $EXE $VERSION");
 
 # regexp to function mapping
 my @formats = (
-  [ 'Genbank', qr/^LOCUS\s/,   \&parse_genbank ],
-  [ 'EMBL',    qr/^ID\s/,      \&parse_embl    ],
-  [ 'GFF',     qr/^##gff/,     \&parse_gff     ],
-  [ 'CLUSTAL', qr/^(CLU|MUS)/, \&parse_clustal ],
-  [ 'FASTA',   qr/^>/,         \&parse_fasta   ],
-  [ 'FASTQ',   qr/^@/,         \&parse_fastq   ],
-  [ 'GFA',     qr/^[A-Z]\t/,   \&parse_gfa     ],
+  [ 'GENBANK',   qr/^LOCUS\s/,       \&parse_genbank   ],
+  [ 'EMBL',      qr/^ID\s/,          \&parse_embl      ],
+  [ 'GFF',       qr/^##gff/,         \&parse_gff       ],
+  [ 'CLUSTAL',   qr/^(CLUST|MUSCL)/, \&parse_clustal   ],
+  [ 'STOCKHOLM', qr/^# STOCKHOLM\s/, \&parse_stockholm ],
+  [ 'FASTA',     qr/^>/,             \&parse_fasta     ],
+  [ 'FASTQ',     qr/^@/,             \&parse_fastq     ],
+  [ 'GFA',       qr/^[A-Z]\t/,       \&parse_gfa       ],
 );
 
 # loop over all positional command line arguments
@@ -295,13 +296,32 @@ sub parse_clustal {
   my($lines) = @_;
   my %seq;
   foreach (@$lines) {
-    next unless m/^(\S+)\s+([A-Z-]+)$/i;
+    next unless m/^(\S+)\s+([A-Z-]+)$/i; # uses '-' for gap
     $seq{$1} .= $2."\n";
   }
   for my $id (sort keys %seq) {
     print ">", $id, "\n", purify($seq{$id});
   }
   msg("Found", scalar(keys %seq), "sequences in CLUSTAL file.");
+}
+
+#......................................................................................
+
+sub parse_stockholm {
+  my($lines) = @_;
+  my %seq;
+  foreach (@$lines) {
+    next if m/^#/;
+    last if m{^//};
+    next unless m/^(\S+)\s+([A-Z.]+)$/i;  # uses '.' for gap
+    my($id,$sq) = ($1,$2);
+    $sq =~ s/\./-/g;  # switch to standard FASTA '-' gap char
+    $seq{$id} .= $sq . "\n";
+  }
+  for my $id (sort keys %seq) {
+    print ">", $id, "\n", purify($seq{$id});
+  }
+  msg("Found", scalar(keys %seq), "sequences in STOCKHOLM file.");
 }
 
 #......................................................................................

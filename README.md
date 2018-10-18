@@ -21,10 +21,11 @@ runs very quickly.
 
 It supports the following input formats:
 1. Genbank flat file, typically `.gb`, `.gbk`, `.gbff` (starts with `LOCUS`)
-2. GFF with sequence, typically `.gff`, `.gff3` (starts with `##gff`)
-3. FASTA DNA, typically `.fasta`, `.fa`, `.fna`, `.ffn` (starts with `>`)
-4. FASTQ DNA, typically `.fastq`, `.fq` (starts with '@')
-5. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`)
+2. EMBL flat file, typically `.embl`, (starts with `ID`)
+3. GFF with sequence, typically `.gff`, `.gff3` (starts with `##gff`)
+4. FASTA DNA, typically `.fasta`, `.fa`, `.fna`, `.ffn` (starts with `>`)
+5. FASTQ DNA, typically `.fastq`, `.fq` (starts with '@')
+6. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`)
 
 Files may be compressed with:
 1. gzip, typically `.gz`

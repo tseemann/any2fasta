@@ -1,0 +1,92 @@
+ID   K02675; SV 1; linear; genomic DNA; STD; UNC; 569 BP.
+XX
+AC   K02675;
+XX
+DT   02-JUL-1986 (Rel. 09, Created)
+DT   15-JAN-2007 (Rel. 90, Last updated, Version 4)
+XX
+DE   Plasmid pWM5 (mini-plasmid derivative of chimeric R/Ent plasmid pCG86 from
+DE   E.coli) basic replicon RepFIIA/RepFIC region.
+XX
+KW   plasmid.
+XX
+OS   Plasmid pWM5
+OC   other sequences; plasmids.
+OG   Plasmid pWM5
+XX
+RN   [1]
+RP   1-569
+RX   DOI; 10.1016/0147-619X(84)90062-3.
+RX   PUBMED; 6494315.
+RA   Picken R.N., Mazaitis A.J., Saadi S., Maas W.K.;
+RT   "Characterization of the basic replicons of the chimeric R/Ent plasmid
+RT   pCG86 and the related Ent plasmid P307";
+RL   Plasmid 12(1):10-18(1984).
+XX
+DR   MD5; ed354992449dfe2168aad0ff7db774cc.
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..569
+FT                   /organism="Plasmid pWM5"
+FT                   /plasmid="pWM5"
+FT                   /host="K-12"
+FT                   /mol_type="genomic DNA"
+FT                   /db_xref="taxon:2660"
+XX
+SQ   Sequence 569 BP; 145 A; 133 C; 152 G; 139 T; 0 other;
+     agtcgctttt aattatgaat gttgtaacta cattatcatc gctgtcagtc ttctggctgg        60
+     acgtactgag tacacgctcg taagcggccc tgacggcccg ctaacgcgga gatacgcccc       120
+     gactgcgggt aaacccttgt cgggaccact ccgaccgcgc acagaagctc tgtcatggct       180
+     gaaagcgggt atagcttagc aggaccggga tgagtaaggt gaaatctatc aatacgtacc       240
+     ggcttacgcc gggcttcggc ggttttactc cggtataata tgaaacaaca aagtgccgcc       300
+     ttacatgccg ctggcgcggc atatcttggt gacaatatct gaatcgttat atactgcgta       360
+     tatacgtagt aatgacgagg tgataaatgg cacaggttaa tatgagttta agaatcgacg       420
+     ctgaactgaa ggatgctttt atggctgctg caaaaagcat ggaccgtaat ggctctcagt       480
+     taatccggga ttttatgcgc cagaccgttg aacggcagca taatacctgg ttccgtgacc       540
+     aggttgcggc aggacgtcag caactcgag                                         569
+//
+ID   L02679; SV 1; linear; genomic DNA; STD; UNC; 569 BP.
+XX
+AC   L02679;
+XX
+DT   10-JUL-1987 (Rel. 09, Created)
+XX
+DE   Plasmid pWM7 (mini-plasmid derivative of chimeric R/Ent plasmid pCG86)
+XX
+KW   plasmid.
+XX
+OS   Plasmid pWM7
+OC   other sequences; plasmids.
+OG   Plasmid pWM7
+XX
+RN   [1]
+RP   1-569
+RX   DOI; 10.1016/0147-619X(84)90062-3.
+RX   PUBMED; 6494315.
+RA   Picken R.N., Mazaitis A.J., Saadi S., Maas W.K.;
+RT   "Characterization of the basic replicons of the chimeric R/Ent plasmid
+RT   pCG86 and the related Ent plasmid P307";
+RL   Plasmid 12(1):10-18(1984).
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..569
+FT                   /organism="Plasmid pWM7"
+FT                   /plasmid="pWM7"
+FT                   /host="K-12"
+FT                   /mol_type="genomic DNA"
+FT                   /db_xref="taxon:2660"
+XX
+SQ   Sequence 569 BP; 145 A; 133 C; 152 G; 139 T; 0 other;
+     agtcgctttt aattatgaat gttgtaacta cattatcatc gctgtcagtc ttctggctgg        60
+     acgtactgag tacacgctcg taagcggccc tgacggcccg ctaacgcgga gatacgcccc       120
+     gactgcgggt aaacccttgt cgggaccact ccgaccgcgc acagaagctc tgtcatggct       180
+     gaaagcgggt atagcttagc aggaccggga tgagtaaggt gaaatctatc aatacgtacc       240
+     ggcttacgcc gggcttcggc ggttttactc cggtataata tgaaacaaca aagtgccgcc       300
+     ttacatgccg ctggcgcggc atatcttggt gacaatatct gaatcgttat atactgcgta       360
+     tatacgtagt aatgacgagg tgataaatgg cacaggttaa tatgagttta agaatcgacg       420
+     ctgaactgaa ggatgctttt atggctgctg caaaaagcat ggaccgtaat ggctctcagt       480
+     taatccggga ttttatgcgc cagaccgttg aacggcagca taatacctgg ttccgtgacc       540
+     aggttgcggc aggacgtcag caactcgag                                         569
+//

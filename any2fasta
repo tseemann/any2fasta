@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.2.5";
+our $VERSION = "0.2.6";
 our $EXE = basename($0);
 our $FORMAT = "%a %d";
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
@@ -20,7 +20,7 @@ sub usage {
   my $ofh = $errcode ? \*STDERR : \*STDOUT;
   print $ofh 
     "NAME\n  $EXE $VERSION\n",
-    "SYNOPSIS\n  Convert a Genbank/FASTA/GFF/GFA file into a FASTA file\n",
+    "SYNOPSIS\n  Convert a Genbank/EMBL/FASTA/FASTQ/GFF/GFA file into a FASTA file\n",
     "USAGE\n  $EXE [options] file.{gb,fa,fq,gff,gfa}[.gz,bz2,zip] > output.fasta\n",
     "OPTIONS\n",
     "  -h       Print this help\n",
@@ -84,7 +84,8 @@ for my $fname (@ARGV) {
   msg("Read $lines lines from '$fname'");
 
   # detect format from first line
-  if ($line[0] =~ m/^LOCUS/) { parse_genbank(\@line) }
+  if ($line[0] =~ m/^LOCUS\s/) { parse_genbank(\@line) }
+  elsif ($line[0] =~ m/^ID\s/) { parse_embl(\@line) }
   elsif ($line[0] =~ m/^>/) { parse_fasta(\@line) }
   elsif ($line[0] =~ m/^@/) { parse_fastq(\@line) }
   elsif ($line[0] =~ m/^##gff/) { parse_gff(\@line) }
@@ -209,7 +210,7 @@ sub parse_genbank {
     }
     
     if ($in_seq) {
-      my $s = substr $_, 10;
+      my $s = substr $_, 10;  # trim the coordinate prefix
       $s =~ s/\s//g;
       $dna .= $s;
       $dna .= "\n";
@@ -230,5 +231,45 @@ sub parse_genbank {
     }
   }
   msg("Found $count sequences in GENBANK file.");
+}
+
+#......................................................................................
+
+sub parse_embl {
+  my($lines) = @_;
+  my $acc = '';
+  my $in_seq = 0;
+  my $dna = '';
+  my $count = 0;
+
+  foreach (@$lines) {
+    chomp;
+    if (m{^//}) {
+      # end of record
+      print ">", $acc, "\n", purify($dna);
+      $count++;
+      $in_seq = 0;
+      $dna = $acc = '';
+      next;
+    }
+    elsif (m/^SQ\s/) {
+      # SQ   Sequence 569 BP; 145 A; 133 C; 152 G; 139 T; 0 other;
+      $in_seq = 1;
+      next;
+    }
+
+    if ($in_seq) {
+      #      agtcgctttt aattatgaat gttgtaacta cattatcatc gctgtcagtc ttctggctgg        60
+      s/[\s\d]//g;
+      $dna .= $_ . "\n";
+    }
+    else {
+      # ID   K02675; SV 1; linear; genomic DNA; STD; UNC; 569 BP.
+      if (m/^ID\s+([^;]+)/) {
+        $acc = $1;
+      }
+    }
+  }
+  msg("Found $count sequences in EMBL file.");
 }
 

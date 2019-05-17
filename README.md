@@ -49,11 +49,11 @@ or higher. It only uses core modules, so no CPAN needed.
 ```
 ### Homebrew
 ```
-% brew install brewsci/bio/any2fasta # COMING SOON
+% brew install brewsci/bio/any2fasta
 ```
 ### Conda
 ```
-% conda install -c bioconda any2fasta # COMING SOON
+% conda install -c bioconda any2fasta
 ```
 ### Github
 ```
@@ -123,4 +123,3 @@ Submit feedback to the [Issue Tracker](https://github.com/tseemann/any2fasta/iss
 ## Author
 
 [Torsten Seemann](http://tseemann.github.io/)
-

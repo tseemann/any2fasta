@@ -36,3 +36,4 @@ inc/
 
 # backups
 *~
+.*.sw?

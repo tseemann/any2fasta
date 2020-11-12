@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.4.2";
+our $VERSION = "0.4.3";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -29,6 +29,7 @@ sub usage {
     "  -n       Replace ambiguous IUPAC letters with 'N'\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
+    "  -S       Do not sort by sequence name (supported for stockholm and clustal input)\n",
     "HOMEPAGE\n  $URL\n",
     "END\n";
   exit($errcode);
@@ -42,7 +43,7 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnlu', \%opt) or exit(-1);
+getopts('vhqnluS', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
@@ -275,11 +276,15 @@ sub parse_embl {
 sub parse_clustal {
   my($lines) = @_;
   my %seq;
+  my @ids;
   foreach (@$lines) {
     next unless m/^(\S+)\s+([A-Z-]+)$/i; # uses '-' for gap
-    $seq{$1} .= $2."\n";
+    my($id,$sq) = ($1,$2);
+    push @ids, $id unless $seq{$id};
+    $seq{$id} .= $sq."\n";
   }
-  for my $id (sort keys %seq) {
+  @ids = sort @ids unless $opt{S};
+  for my $id ( @ids ) {
     print ">", $id, "\n", purify($seq{$id});
   }
   return scalar(keys %seq);
@@ -290,15 +295,18 @@ sub parse_clustal {
 sub parse_stockholm {
   my($lines) = @_;
   my %seq;
+  my @ids;
   foreach (@$lines) {
     next if m/^#/;
     last if m{^//};
     next unless m/^(\S+)\s+([A-Z.]+)$/i;  # uses '.' for gap
     my($id,$sq) = ($1,$2);
+    push @ids, $id unless $seq{$id};
     $sq =~ s/\./-/g;  # switch to standard FASTA '-' gap char
     $seq{$id} .= $sq . "\n";
   }
-  for my $id (sort keys %seq) {
+  @ids = sort @ids unless $opt{S};
+  for my $id ( @ids ) {
     print ">", $id, "\n", purify($seq{$id});
   }
   return scalar(keys %seq);

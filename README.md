@@ -11,7 +11,7 @@ Convert various sequence formats to FASTA
 You may wonder why this tool even exists.  Well, I tried to do the right
 thing and use established tools like `readseq` and `seqret` from EMBOSS, but
 they both mangled IDs containing `|` or `.` characters, and
-there is no way to fix this behaviour.  This resulted in inconsitences
+there is no way to fix this behaviour.  This resulted in inconsistencies
 between my `.gbk` and `.fna` versions of files in my pipelines.
 
 Then you may wonder why I didn't use Bioperl or Biopython. Well they are

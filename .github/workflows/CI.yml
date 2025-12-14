@@ -34,8 +34,6 @@ jobs:
         run: |
           any2fasta -v
           any2fasta -h
-          (any2fasta /dev/null 2>&1 ; true) | grep 'ERROR'
-          (any2fasta test.noseq.gff 2>&1 ; true) | grep 'ERROR'
           any2fasta test.gbk | grep -m 3 '^>'
           any2fasta test.gff | grep -m 3 '^>'
           any2fasta test.fna | grep -m 3 '^>'

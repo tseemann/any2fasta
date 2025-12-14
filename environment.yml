@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - perl >=5.18.0
+  - gzip
+  - bzip2
+  - unzip

@@ -1,5 +1,8 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Don't judge me](https://img.shields.io/badge/Language-Perl_5-steelblue.svg)
+[![CI](https://github.com/tseemann/any2fasta/actions/workflows/CI.yml/badge.svg)](https://github.com/tseemann/any2fasta/actions/workflows/CI.yml)
+[![Bioconda Downloads](https://img.shields.io/conda/dn/bioconda/any2fasta.svg)](https://anaconda.org/bioconda/any2fasta)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/tseemann/any2fasta)](https://github.com/tseemann/any2fasta/releases)
 
 # any2fasta
 

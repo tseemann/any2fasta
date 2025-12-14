@@ -49,10 +49,6 @@ or higher. It only uses core modules, so no CPAN needed.
 % wget https://raw.githubusercontent.com/tseemann/any2fasta/master/any2fasta
 % chmod +x any2fasta
 ```
-### Homebrew
-```
-% brew install brewsci/bio/any2fasta
-```
 ### Conda
 ```
 % conda install -c bioconda any2fasta
@@ -67,7 +63,7 @@ or higher. It only uses core modules, so no CPAN needed.
 
 ```
 % ./any2fasta -v
-any2fasta 0.2.2
+any2fasta 0.4.2
 
 % ./any2fasta -h
 NAME

@@ -52,7 +52,7 @@ jobs:
         run: |
           set +x
           for EXT in $FORMATS ; do
-            any2fasta -a test.$EXT > /dev/null
+            any2fasta -q test.$EXT > /dev/null
           done
 
       - name: Output tests

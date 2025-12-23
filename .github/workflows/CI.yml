@@ -52,7 +52,7 @@ jobs:
         run: |
           set +x
           for EXT in $FORMATS ; do
-            any2fasta test.$EXT | grep '^| | head -n 3
+            any2fasta test.$EXT | grep '^>' | head -n 3
           done
 
       - name: Output tests
@@ -77,7 +77,9 @@ jobs:
       - name: Compression tests
         run: |
           set +x
-          gzip -c test.gbk | any2fasta - | grep -F 'NZ_AHMY02000074' | head -n 1
-          bzip2 -c test.gbk | any2fasta - | grep  -F 'NZ_AHMY02000074' | head -n 1
+          FL="head -n 1"
+          ACC="NZ_AHMY02000074"
+          gzip -c test.gbk | any2fasta - | grep -F $ACC | $FL
+          bzip2 -c test.gbk | any2fasta - | grep -F $ACC  | $FL
           zip test.gbk.zip test.gbk
-          any2fasta test.gbk.zip | grep -F 'NZ_AHMY02000074' | head -n 1
+          any2fasta test.gbk.zip | grep -F $ACC | $FL

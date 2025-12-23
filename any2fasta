@@ -310,9 +310,9 @@ sub parse_embl {
 sub parse_clustal {
   my($lines) = @_;
   my %seq;
-  my @order;
+  my @order;  # keep track of sequence identifiers order
   foreach (@$lines) {
-    next unless m/^(\S+)\s+([A-Z-]+)(?:\s+\d+)?$/i; # uses '-' for gap, optional position number #AT
+    next unless m/^(\S+)\s+([A-Z-]+)(?:\s+\d+)?$/i; # uses '-' for gap, ignore optional position number
     push @order, $1 unless exists $seq{$1};
     $seq{$1} .= $2."\n";
   }
@@ -327,11 +327,11 @@ sub parse_clustal {
 sub parse_stockholm {
   my($lines) = @_;
   my %seq;
-  my @order;
+  my @order;  # keep track of sequence identifiers order
   foreach (@$lines) {
     next if m/^#/;
     last if m{^//};
-    next unless m/^(\S+)\s+([A-Z.-]+)(?:\s+\d+)?$/i; # uses '.' and '-' for gap, optional position number #AT
+    next unless m/^(\S+)\s+([A-Z.-]+)(?:\s+\d+)?$/i; # uses '.' and also '-' for gap, optional position number
     my($id,$sq) = ($1,$2);
     $sq =~ s/\./-/g;  # switch to standard FASTA '-' gap char
     push @order, $id unless exists $seq{$id};
@@ -367,4 +367,3 @@ sub parse_pdb {
 }
 
 #......................................................................................
-

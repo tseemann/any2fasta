@@ -52,7 +52,7 @@ jobs:
         run: |
           set +x
           for EXT in $FORMATS ; do
-            any2fasta test.$EXT | grep '^>' | head -n 3
+            any2fasta -a test.$EXT > /dev/null
           done
 
       - name: Output tests

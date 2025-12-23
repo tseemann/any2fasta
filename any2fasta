@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use 5.18.0;
 use strict;
 use warnings;
 use Getopt::Std;
@@ -8,7 +9,7 @@ use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.6.0";
+our $VERSION = "0.6.1";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';

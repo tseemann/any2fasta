@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  FORMATS: "gbk gff fna gfa fq embl clw sth pdb"
+  COMPRESSORS: "gzip bzip2"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,31 +34,54 @@ jobs:
         run: |
           echo "$GITHUB_WORKSPACE" >> $GITHUB_PATH
 
-      - name: Testing
+      - name: Simple tests
         run: |
+          set +x
           any2fasta -v
           any2fasta -h
-          any2fasta test.gbk | grep -m 3 '^>'
-          any2fasta test.gff | grep -m 3 '^>'
-          any2fasta test.fna | grep -m 3 '^>'
-          any2fasta test.gfa | grep -m 3 '^>'
-          any2fasta test.fq  | grep -m 3 '^>'
-          any2fasta test.embl | grep -m 3 '^>'
-          any2fasta test.clw  | grep -m 3 '^>'
-          any2fasta test.sth  | grep -m 3 '^>'
+          echo -e ">1\nA\n\n>2\nT\n" | any2fasta -q - | wc -l | grep '^4$'
+
+      - name: Bad input tests
+        run: |
+          set +x
+          any2fasta test.gbk > /dev/null
+          ! any2fasta test.noseq.gff
+          ! any2fasta test.* > /dev/null
+
+      - name: File format tests
+        run: |
+          set +x
+          for EXT in $FORMATS ; do
+            any2fasta -q test.$EXT > /dev/null
+          done
+
+      - name: Output tests
+        run: |
+          set +x
           any2fasta    test.fna | grep 'CRYANT'
           any2fasta -n test.fna | grep 'CNNANT'
           any2fasta test.gfa | grep '^>24292$'
           any2fasta test.fq | grep '^>ERR1163317.999'
           any2fasta test.sth | grep '^>O83071'
           any2fasta test.clw | grep '^>gene03'
+          any2fasta - < test.gbk  | grep -F 'NZ_AHMY02000074' | head -n 1
+          
+      - name: Reformatting tests
+        run: |
+          set +x          
           any2fasta -l test.gbk | grep 'taagaatgagtagaaggttttga'
           any2fasta -u test.gbk | grep 'TAAGAATGAGTAGAAGGTTTTGA'
           any2fasta -u test.embl | grep 'K02675'
           any2fasta -q -l -n test.fq | wc -l | grep '^2000$'
-          any2fasta - < test.gbk  | grep -m 1 -F 'NZ_AHMY02000074'
-          gzip -c test.gbk | any2fasta - | grep -m 1 -F 'NZ_AHMY02000074'
-          bzip2 -c test.gbk | any2fasta - | grep -m 1 -F 'NZ_AHMY02000074'
+
+      - name: Compression tests
+        run: |
+          set +x
+          FL="head -n 1"
+          ACC="NZ_AHMY02000074"
+          for EXE in $COMPRESSORS ; do
+            echo "Compressing with $EXE"
+            $EXE -c test.gbk | any2fasta - | grep -F $ACC | $FL
+          done
           zip test.gbk.zip test.gbk
-          any2fasta test.gbk.zip | grep -m 1 -F 'NZ_AHMY02000074'
-          echo -e ">1\nA\n\n>2\nT\n" | any2fasta -q - | wc -l | grep '^4$'
+          any2fasta test.gbk.zip | grep -F $ACC | $FL

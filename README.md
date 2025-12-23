@@ -31,12 +31,18 @@ It supports the following input formats:
 6. CLUSTAL alignments, typically `.clw`, `.clu` (starts with `CLUSTAL` or `MUSCLE`)
 7. STOCKHOLM alignments, typically `.sth` (starts with `# STOCKHOLM`)
 8. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`)
+9. PDB protein data bank structure, typicall `.pdb` (starts with `^HEADER`)
 
 Files may be compressed with:
 
 1. gzip, typically `.gz`
 2. bzip2, typically `.bz2`
 3. zip, typically `.zip`
+
+plus any other formats supported by
+your installed version of Perl's
+[`IO::Uncompress::AnyUncompress`](https://perldoc.perl.org/IO::Uncompress::AnyUncompress#DESCRIPTION)
+module.
 
 ## Installation
 
@@ -63,11 +69,11 @@ or higher. It only uses core modules, so no CPAN needed.
 
 ```
 % ./any2fasta -v
-any2fasta 0.4.2
+any2fasta 0.5.0
 
 % ./any2fasta -h
 NAME
-  any2fasta 0.4.2
+  any2fasta 0.5.0
 SYNOPSIS
   Convert various sequence formats into FASTA
 USAGE
@@ -76,7 +82,8 @@ OPTIONS
   -h       Print this help
   -v       Print version and exit
   -q       No output while running, only errors
-  -n       Replace ambiguous IUPAC letters with 'N'
+  -k       Skip, don't die, on bad input files
+  -n       Replace non-[AGTC] with 'N'
   -l       Lowercase the sequence
   -u       Uppercase the sequence
 END
@@ -109,6 +116,7 @@ END
 * `-l` will lowercase all the letters
 * `-u` will uppercase all the letters
 * `-q` will prevent logging messages being printed
+* `-k` will warn of bad inputs and continue on. not stop and error
 
 ## Issues
 

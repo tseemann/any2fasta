@@ -7,7 +7,7 @@ use IO::Uncompress::AnyUncompress;
 
 #......................................................................................
 
-our $VERSION = "0.4.3";
+our $VERSION = "0.5.0";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -21,12 +21,13 @@ sub usage {
   print $ofh 
     "NAME\n  $EXE $VERSION\n",
     "SYNOPSIS\n  Convert various sequence formats into FASTA\n",
-    "USAGE\n  $EXE [options] file.{gb,fa,fq,gff,gfa,clw,sth}[.gz,bz2,zip] > output.fasta\n",
+    "USAGE\n  $EXE [opts] file.{gb,fa,fq,gff,gfa,clw,sth}[.gz,bz2,zip,zstd] > output.fasta\n",
     "OPTIONS\n",
     "  -h       Print this help\n",
     "  -v       Print version and exit\n",
     "  -q       No output while running, only errors\n",
-    "  -n       Replace ambiguous IUPAC letters with 'N'\n",
+    "  -k       Skip, don't die, on bad input files\n",
+    "  -n       Replace non-[AGTC] with 'N'\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
     "HOMEPAGE\n  $URL\n",
@@ -42,22 +43,23 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnlu', \%opt) or exit(-1);
+getopts('vhqnluk', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
+my $skip = $opt{'k'};
 
 #......................................................................................
-
 sub msg {
   print STDERR "@_\n" unless $opt{q};
 }
-
+sub wrn {
+  msg("WARNING:", @_);
+}
 sub err {
   print STDERR "ERROR: @_\n";
   exit(-1);
 }
-
 #......................................................................................
 
 msg("This is $EXE $VERSION");
@@ -77,16 +79,28 @@ my @formats = (
 # loop over all positional command line arguments
 my $processed=0;
 
-for my $fname (@ARGV) {
-  msg("Opening '$fname'");
-  $fname = $STDIN if $fname eq '-';
-  -d $fname and err("'$fname' is a directory not a file");
-  -r $fname or err("'$fname' is not readable");
+# are we in '-k' skip mode?
+my $notify = $skip ? \&wrn :\&err;
 
+FILE:
+for my $infile (@ARGV) {
+  msg("Opening '$infile'");
+  $infile = $STDIN if $infile eq '-';
+  if (-d $infile) {
+    $notify->("'$infile' is a directory not a file");
+    next FILE;
+  }
+  if (! -r $infile) {
+    $notify->("'$infile' is not readable");
+    next FILE;
+  }
   # read first line to see if we have any data
-  my $unzip = IO::Uncompress::AnyUncompress->new($fname);
+  my $unzip = IO::Uncompress::AnyUncompress->new($infile);
   my $header = scalar(<$unzip>); # read first line
-  $header or err("The input appears to be empty");
+  if (not $header) {
+    $notify->("The input appears to be empty");
+    next FILE;
+  }
 
   # detect format from first line
   my $ok=0;
@@ -96,16 +110,16 @@ for my $fname (@ARGV) {
       # read in the rest of the file now
       my @line = ($header, <$unzip>);
       my $lines = scalar(@line);
-      msg("Read $lines lines from '$fname'");
+      msg("Read $lines lines from '$infile'");
       # run the parser
       my $nseq = $fmt->[2]->( \@line );
       msg("Wrote $nseq sequences from", $fmt->[0], "file.");
-      $nseq or err("No sequences found in '$fname'");
+      $nseq or $notify->("No sequences found in '$infile'");
       $ok++;
       last;
     }
   }
-  $ok or err("Unfamilar format with first line: $header");
+  $ok or $notify->r("Unfamilar format with first line: $header");
   $processed++;
 }
 

@@ -41,6 +41,13 @@ jobs:
           any2fasta -h
           echo -e ">1\nA\n\n>2\nT\n" | any2fasta -q - | wc -l | grep '^4$'
 
+      - name: Bad input tests
+        run: |
+          set +x
+          any2fasta test.gbk > /dev/null
+          ! any2fasta test.noseq.gff
+          ! any2fasta test.*
+
       - name: File format tests
         run: |
           set +x

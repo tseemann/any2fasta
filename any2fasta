@@ -358,7 +358,7 @@ sub parse_pdb {
     next unless m/^SEQRES/;
     my @x = split ' ', $_;
     $seq{"$prefix-$x[2]"} .= 
-      join( '', map { $aa{uc($_)} || '*'  } 
+      join( '', map { $aa{uc($_)} || 'X'  } 
         splice(@x,4) );
   }
   for my $id (sort keys %seq) {

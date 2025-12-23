@@ -4,10 +4,11 @@ use warnings;
 use Getopt::Std;
 use File::Basename;
 use IO::Uncompress::AnyUncompress;
+use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.5.0";
+our $VERSION = "0.5.1";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -62,6 +63,9 @@ $opt{h} and usage(0);
 @ARGV or usage(1);
 my $skip = $opt{'k'};
 
+# to debug broken pipe errors in CI
+#STODUT->autoflush(1);
+
 #......................................................................................
 sub msg {
   print STDERR "@_\n" unless $opt{q};
@@ -109,6 +113,10 @@ for my $infile (@ARGV) {
   }
   # read first line to see if we have any data
   my $unzip = IO::Uncompress::AnyUncompress->new($infile);
+  if (! $unzip) {
+    $notify->("Can not uncompress: $infile");
+    next FILE;
+  }
   my $header = scalar(<$unzip>); # read first line
   if (not $header) {
     $notify->("The input appears to be empty");
@@ -132,7 +140,7 @@ for my $infile (@ARGV) {
       last;
     }
   }
-  $ok or $notify->r("Unfamilar format with first line: $header");
+  $ok or $notify->("Unfamilar format with first line: $header");
   $processed++;
 }
 

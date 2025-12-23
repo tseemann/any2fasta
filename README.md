@@ -37,7 +37,11 @@ Files may be compressed with:
 1. gzip, typically `.gz`
 2. bzip2, typically `.bz2`
 3. zip, typically `.zip`
-4. zstd, typically `.zstd`
+
+plus any other formats supported by
+your installed version of Perl's
+[`IO::Uncompress::AnyUncompress`](https://perldoc.perl.org/IO::Uncompress::AnyUncompress#DESCRIPTION)
+module.
 
 ## Installation
 

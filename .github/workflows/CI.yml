@@ -8,7 +8,7 @@ on:
 
 env:
   FORMATS: "gbk gff fna gfa fq embl clw sth"
-  COMPRESSORS: "gzip bzip2 zstd xz"
+  COMPRESSORS: "gzip bzip2"
 
 jobs:
   build:

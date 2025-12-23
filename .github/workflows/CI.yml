@@ -8,7 +8,7 @@ on:
 
 env:
   FORMATS: "gbk gff fna gfa fq embl clw sth"
-  COMPRESSIONS: "gzip bzip2 zstd xz"
+  COMPRESSORS: "gzip bzip2 zstd xz"
 
 jobs:
   build:
@@ -80,6 +80,7 @@ jobs:
           FL="head -n 1"
           ACC="NZ_AHMY02000074"
           for EXE in $COMPRESSORS ; do
+            echo "Compressing with $EXE"
             $EXE -c test.gbk | any2fasta - | grep -F $ACC | $FL
           done
           zip test.gbk.zip test.gbk

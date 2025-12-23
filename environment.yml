@@ -6,3 +6,5 @@ dependencies:
   - gzip
   - bzip2
   - unzip
+  - xz
+  - zstd

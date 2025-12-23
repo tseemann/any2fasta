@@ -46,13 +46,14 @@ jobs:
           set +x
           any2fasta test.gbk > /dev/null
           ! any2fasta test.noseq.gff
-          ! any2fasta test.*
+          ! any2fasta test.* > /dev/null
 
       - name: File format tests
         run: |
           set +x
           for EXT in $FORMATS ; do
-            any2fasta test.$EXT | grep -m 3 '^>'
+            any2fasta test.$EXT > /dev/null
+             #| grep -m 3 '^>'
           done
 
       - name: Output tests

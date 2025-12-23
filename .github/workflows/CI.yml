@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  FORMATS: "gbk gff fna gfa fq embl clw sth"
+  FORMATS: "gbk gff fna gfa fq embl clw sth pdb"
   COMPRESSORS: "gzip bzip2"
 
 jobs:

@@ -8,7 +8,7 @@ use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.5.1";
+our $VERSION = "0.6.0";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -91,6 +91,7 @@ my @formats = (
   [ 'FASTA',     qr/^>/,             \&parse_fasta     ],
   [ 'FASTQ',     qr/^@/,             \&parse_fastq     ],
   [ 'GFA',       qr/^[A-Z]\t/,       \&parse_gfa       ],
+  [ 'PDB',       qr/^HEADER\s/,      \&parse_pdb       ],
 );
 
 # loop over all positional command line arguments
@@ -339,3 +340,27 @@ sub parse_stockholm {
 }
 
 #......................................................................................
+
+sub parse_pdb {
+  my($lines) = @_;
+  my %seq;
+  # HEADER IMMUNE SYSTEM  06-MAR-00   1EK3
+  my @hdr = split ' ', $lines->[0];
+  my $prefix = $hdr[-1];
+  foreach (@$lines) {
+    #SEQRES   9 A  114  GLY GLY GLY THR LYS VAL GLU IL E LYS ARG
+    #SEQRES   1 B  114  ASP ILE VAL MET THR GLN SER PR O ASP SER LEU ALA VAL
+    next unless m/^SEQRES/;
+    my @x = split ' ', $_;
+    $seq{"$prefix-$x[2]"} .= 
+      join( '', map { $aa{uc($_)} || '*'  } 
+        splice(@x,4) );
+  }
+  for my $id (sort keys %seq) {
+    print ">", $id, "\n", purify($seq{$id}), "\n";
+  }
+  return scalar(keys %seq);
+}
+
+#......................................................................................
+

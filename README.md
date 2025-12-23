@@ -31,6 +31,7 @@ It supports the following input formats:
 6. CLUSTAL alignments, typically `.clw`, `.clu` (starts with `CLUSTAL` or `MUSCLE`)
 7. STOCKHOLM alignments, typically `.sth` (starts with `# STOCKHOLM`)
 8. GFA assembly graph, typically `.gfa` (starts with `^[A-Z]\t`)
+9. PDB protein data bank structure, typicall `.pdb` (starts with `^HEADER`)
 
 Files may be compressed with:
 

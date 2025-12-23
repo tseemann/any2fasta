@@ -5,6 +5,10 @@ use Getopt::Std;
 use File::Basename;
 use IO::Uncompress::AnyUncompress;
 
+# Ignore SIGPIPE to prevent "Broken pipe" errors when piping to commands
+# like grep that may exit early after finding their match
+$SIG{PIPE} = 'IGNORE';
+
 #......................................................................................
 
 our $VERSION = "0.5.0";
@@ -126,6 +130,14 @@ for my $infile (@ARGV) {
 msg("Processed $processed files.");
 
 msg("Done.");
+
+# Explicitly close STDOUT and ignore any errors from broken pipes
+close(STDOUT) or do {
+  # Silently ignore broken pipe errors (EPIPE = errno 32)
+  exit(0) if $! == 32;
+  die "Error closing stdout: $!\n";
+};
+
 exit(0);
 
 #......................................................................................

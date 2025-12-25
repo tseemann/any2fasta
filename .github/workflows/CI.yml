@@ -65,7 +65,20 @@ jobs:
           any2fasta test.sth | grep '^>O83071'
           any2fasta test.clw | grep '^>gene03'
           any2fasta - < test.gbk  | grep -F 'NZ_AHMY02000074' | head -n 1
-          
+
+      - name: Order preservation tests
+        run: |
+          set +x
+          # Check that ClustalW output preserves original order (not alphabetical)
+          ORDER=$(any2fasta test.clw | grep '>' | paste -sd ' ')
+          EXPECTED=">gene02 >gene01 >gene03"
+          if [ "$ORDER" != "$EXPECTED" ]; then
+            echo "Order test failed!"
+            echo "Expected: $EXPECTED"
+            echo "Got: $ORDER"
+            exit 1
+          fi
+
       - name: Reformatting tests
         run: |
           set +x          

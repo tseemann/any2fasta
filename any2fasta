@@ -4,12 +4,12 @@ use strict;
 use warnings;
 use Getopt::Std;
 use File::Basename;
-use IO::Uncompress::AnyUncompress;
+use IO::Uncompress::AnyUncompress qw(anyuncompress $AnyUncompressError);
 use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.6.1";
+our $VERSION = "0.6.3";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -114,9 +114,14 @@ for my $infile (@ARGV) {
     next FILE;
   }
   # read first line to see if we have any data
-  my $unzip = IO::Uncompress::AnyUncompress->new($infile);
+  my $unzip = IO::Uncompress::AnyUncompress->new(
+    $infile,
+    'MultiStream' => 1,  # fix Issue #34
+    'Transparent'  => 1, # allow non-compressed data 
+    'BlockSize'=> (1 << 16), # in bytes
+  );
   if (! $unzip) {
-    $notify->("Can not uncompress: $infile");
+    $notify->($AnyUncompressError);
     next FILE;
   }
   my $header = scalar(<$unzip>); # read first line

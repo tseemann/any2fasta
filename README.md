@@ -78,11 +78,11 @@ or higher. It only uses core modules, so no CPAN needed.
 ### Sinple check
 ```
 % ./any2fasta -v
-any2fasta 0.6.2
+any2fasta 1.0.2
 
 % ./any2fasta -h
 NAME
-  any2fasta 0.6.2
+  any2fasta 1.0.2
 SYNOPSIS
   Convert various sequence formats into FASTA
 USAGE
@@ -95,6 +95,7 @@ OPTIONS
   -n       Replace non-[AGTC] with 'N'
   -l       Lowercase the sequence
   -u       Uppercase the sequence
+  -g       Include VERSION from GBK/EMBL files
 END
 ```
 ### Extensive test
@@ -138,6 +139,7 @@ END
 * `-u` will uppercase all the letters
 * `-q` will prevent logging messages being printed
 * `-k` will warn of bad inputs and continue on. not stop and error
+* `-g` will appened the version to the sequence ID 
 
 ## Issues
 

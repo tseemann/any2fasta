@@ -9,7 +9,7 @@ use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.6.3";
+our $VERSION = "0.7.0";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -45,6 +45,7 @@ sub usage {
     "  -n       Replace non-[AGTC] with 'N'\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
+    "  -g       Include VERSION from GBK/EMBL files\n",
     "HOMEPAGE\n  $URL\n",
     "END\n";
   exit($errcode);
@@ -58,7 +59,7 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnluk', \%opt) or exit(-1);
+getopts('vhqnlukg', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
@@ -266,6 +267,11 @@ sub parse_genbank {
       if (m/^LOCUS\s+(\S+)/) {
         $acc = $1;
       }
+      # VERSION     NZ_AHMY02000075.1
+      # this is not elsif in case ther eis no VERSION
+      if ($opt{g} and m/^VERSION\s+(\S+)/) {
+        $acc = $1;
+      }
     }
   }
   return $count;
@@ -305,6 +311,9 @@ sub parse_embl {
       # ID   K02675; SV 1; linear; genomic DNA; STD; UNC; 569 BP.
       if (m/^ID\s+([^;]+)/) {
         $acc = $1;
+        if ($opt{g} and m/\bSV\s+(\d+)/) {
+          $acc .= ".$1";
+        }
       }
     }
   }

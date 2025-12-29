@@ -38,35 +38,35 @@ setup() {
   [[ "$output" =~ "ERROR" ]]
 }
 
-@test "Hanldr FASTA" {
+@test "Handle FASTA" {
   run -0 $exe test.fna
   [[ "${lines[0]}" =~ "$FASTA_ID" ]]  
 }
-@test "Hanld EMBL" {
+@test "Handle EMBL" {
   run -0 $exe test.embl
-  [[ "${lines[0]}" =~ ">K02675" ]]  
+  [[ "${lines[0]}" == ">K02675" ]]  
 }
-@test "Hanld FASTQ" {
+@test "Handle FASTQ" {
   run -0 $exe test.fq
-  [[ "${lines[0]}" =~ ">ERR1163317" ]]  
+  [[ "${lines[0]}" =~ ">ERR1163317.1" ]]  
 }
-@test "Hanld GENBANK" {
+@test "Handle GENBANK" {
   run -0 $exe test.gbk
   [[ "${lines[0]}" =~ ">NZ_AHMY02000075" ]]  
 }
-@test "Hanld GFF" {
+@test "Handle GFF" {
   run -0 $exe test.gff
   [[ "$output" =~ ">BAC_00002" ]]  
 }
-@test "Hanld STOCKHOLM" {
+@test "Handle STOCKHOLM" {
   run -0 $exe test.sth
   [[ "$output" =~ ">O83071/259-312" ]]  
 }
-@test "Hanld CLUSTAL" {
+@test "Handle CLUSTAL" {
   run -0 $exe test.clw
   [[ "$output" =~ ">gene03" ]]  
 }
-@test "Hanld PDB" {
+@test "Handle PDB" {
   run -0 $exe test.pdb
   [[ "$output" =~ ">1EK3-B" ]]  
 }
@@ -131,4 +131,13 @@ setup() {
 @test "Allow skipping over bad files" {
   run $exe -k test.fna test.jpg test.embl
   [[ "$output" =~ ">K02675" ]]  
+}
+
+@test "Handle EMBL -g" {
+  run -0 $exe -g test.embl
+  [[ "${lines[0]}" =~ ">K02675.1" ]]  
+}
+@test "Handle GENBANK -g" {
+  run -0 $exe -g test.gbk
+  [[ "${lines[0]}" =~ ">NZ_AHMY02000075.1" ]]  
 }

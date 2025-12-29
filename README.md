@@ -8,6 +8,14 @@
 
 Convert various sequence formats to FASTA
 
+## Quick start
+```
+% conda install any2fasta
+% any2fasta genome.gbk > genome.fasta
+% any2fasta seq.gbk.gz > seq.fasta
+% any2fasta protein.pdb.bz2 > protein.fasta
+```
+
 ## Motivation
 
 You may wonder why this tool even exists.  Well, I tried to do the right

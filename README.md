@@ -49,31 +49,32 @@ module.
 `any2fasta` has no dependencies except [Perl 5.10](https://www.perl.org/)
 or higher. It only uses core modules, so no CPAN needed.
 
+### Conda
+```
+% conda install -c bioconda any2fasta
+```
 ### Direct script download
 ```
 % cd /usr/local/bin  # choose a folder in your $PATH
 % wget https://raw.githubusercontent.com/tseemann/any2fasta/master/any2fasta
 % chmod +x any2fasta
 ```
-### Conda
-```
-% conda install -c bioconda any2fasta
-```
 ### Github
 ```
 % git clone https://github.com/tseemann/any2fasta.git
-% cp any2fasta/any2fasta /usr/local/bin # choose a folder in your $PATH
+% cp any2fasta/any2fasta $HOME/.local/bin # choose a folder in your $PATH
 ```
 
 ## Test Installation
 
+### Sinple check
 ```
 % ./any2fasta -v
-any2fasta 0.5.0
+any2fasta 0.6.2
 
 % ./any2fasta -h
 NAME
-  any2fasta 0.5.0
+  any2fasta 0.6.2
 SYNOPSIS
   Convert various sequence formats into FASTA
 USAGE
@@ -87,6 +88,18 @@ OPTIONS
   -l       Lowercase the sequence
   -u       Uppercase the sequence
 END
+```
+### Extensive test
+```
+% bats $(dirname $(realpath ../any2fasta))/test/test.sh
+
+ ✓ Script syntax check
+ ✓ Version
+ ...
+ ✓ Multiple sequence with one bad one
+ ✓ Allow skipping over bad files
+
+29 tests, 0 failures, 2 skipped
 ```
 
 ## Examples

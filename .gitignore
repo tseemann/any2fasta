@@ -36,3 +36,5 @@ inc/
 
 # backups
 *~
+bug/
+dev/

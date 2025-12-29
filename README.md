@@ -91,7 +91,7 @@ END
 ```
 ### Extensive test
 ```
-% bats $(dirname $(realpath ../any2fasta))/test/test.sh
+% bats $(dirname $(which any2fasta))/test/test.sh
 
  ✓ Script syntax check
  ✓ Version

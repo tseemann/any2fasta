@@ -68,6 +68,10 @@ setup() {
   run -0 $exe test.clw
   [[ "$output" =~ ">gene03" ]]  
 }
+@test "Handle GFA" {
+  run -0 $exe test.gfa
+  [[ "${lines[0]}" =~ ">225289" ]]
+}
 @test "Handle PDB" {
   run -0 $exe test.pdb
   [[ "$output" =~ ">1EK3-B" ]]  

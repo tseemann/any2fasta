@@ -41,6 +41,7 @@ setup() {
 @test "Handle FASTA" {
   run -0 $exe test.fna
   [[ "${lines[0]}" =~ "$FASTA_ID" ]]  
+  [[ "${lines[0]}" =~ "Leptospira" ]]  
 }
 @test "Handle EMBL" {
   run -0 $exe test.embl
@@ -49,6 +50,7 @@ setup() {
 @test "Handle FASTQ" {
   run -0 $exe test.fq
   [[ "${lines[0]}" =~ ">ERR1163317.1" ]]  
+  [[ "${lines[0]}" =~ "length=" ]]  
 }
 @test "Handle GENBANK" {
   run -0 $exe test.gbk
@@ -94,24 +96,24 @@ setup() {
   [[ "${lines[0]}" =~ "$FASTA_ID" ]]  
 }
 
-@test "Test STDIN" {
+@test "STDIN input" {
   run -0 $exe - < test.fna
   [[ "${lines[0]}" =~ "$FASTA_ID" ]]  
 }
-@test "Test compressed STDIN" {
+@test "Compressed STDIN input" {
   run -0 $exe - < test.fna.gz
   [[ "${lines[0]}" =~ "$FASTA_ID" ]]  
 }
 
-@test "Test -l lowercase" {
+@test "Option -l lowercase" {
   run -0 $exe -l test.fna
   [[ "${lines[1]}" =~ "aacryantctc" ]]  
 }
-@test "Test -u uppercase" {
+@test "Option -u uppercase" {
   run -0 $exe -u test.embl
   [[ "${lines[1]}" =~ "AGTCGCTTTTAA" ]]  
 }
-@test "Test -n deambiguate" {
+@test "Option -n deambiguate" {
   run -0 $exe -n test.fna
   [[ "${lines[1]}" =~ "AACNNANTCTC" ]]  
 }
@@ -140,4 +142,18 @@ setup() {
 @test "Handle GENBANK -g" {
   run -0 $exe -g test.gbk
   [[ "${lines[0]}" =~ ">NZ_AHMY02000075.1" ]]  
+}
+
+@test "Handle FASTA -s" {
+  run -0 $exe -s test.fna
+  [[ "${lines[0]}" =~ "$FASTA_ID" ]]  
+  [[ ! "${lines[0]}" =~ "Leptospira" ]]  
+}
+@test "Handle FASTQ -s" {
+  run -0 $exe -s test.fq
+  [[ ! "${lines[0]}" =~ "length=" ]]  
+}
+@test "Handle GFF -s" {
+  run -0 $exe -s test.gff
+  [[ ! "$output" =~ "contig" ]]  
 }

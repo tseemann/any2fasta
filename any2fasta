@@ -9,7 +9,7 @@ use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.7.0";
+our $VERSION = "0.8.0";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -45,7 +45,8 @@ sub usage {
     "  -n       Replace non-[AGTC] with 'N'\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
-    "  -g       Include VERSION from GBK/EMBL files\n",
+    "  -g       Include VERSION (GENBANK,EMBL)\n",
+    "  -s       Strip sequence descriptions (FASTA,FASTQ)\n",
     "HOMEPAGE\n  $URL\n",
     "END\n";
   exit($errcode);
@@ -59,7 +60,7 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnlukg', \%opt) or exit(-1);
+getopts('vhqnlukgs', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
@@ -159,12 +160,23 @@ exit(0);
 
 #......................................................................................
 
-sub purify {
+sub purify_dna {
   my($dna) = @_;
   $dna =~ s/[^ATGCN\n\r-]/N/gi if $opt{n};
   $dna = lc($dna) if $opt{l};
   $dna = uc($dna) if $opt{u};
   return $dna;
+}
+
+#......................................................................................
+
+sub purify_id {
+  my($id) = @_;
+  # \V is non-(vertical-space) eg. cr nl
+  # \h is     horizonatel-spce eg. spc tan
+  # we don't use $ as that strips the newline
+  $id =~ s/\h\V*// if $opt{'s'};
+  return $id;
 }
 
 #......................................................................................
@@ -175,10 +187,11 @@ sub parse_fasta {
   for my $line (@$lines) {
     next if $line =~ m/^\s*$/;
     if ($line =~ m/^>/) {
+      $line = purify_id($line);
       $count++;
     }
     else {
-      $line = purify($line);
+      $line = purify_dna($line);
     }
     print $line;
   }
@@ -192,8 +205,9 @@ sub parse_fastq {
   my $count=0;
   # jump 4 lines at a time
   for ( my $i=0 ; $i < $#{$lines} ; $i+=4 ) {
+    $lines->[$i] = purify_id($lines->[$i]);
     print ">", substr($lines->[$i], 1);
-    print purify( $lines->[$i+1] );
+    print purify_dna( $lines->[$i+1] );
     $count++;
   }
   return $count;
@@ -203,12 +217,15 @@ sub parse_fastq {
 
 sub parse_gff {
   my($lines) = @_;
-  my $at_seq = 0;
-  for my $line (@$lines) {
-    $at_seq++ if $line =~ m/^>/;
-    print purify($line) if $at_seq;;
+  # Skip past until we get to ##FASTA section
+  while (my $line = shift @$lines) {
+    if ($line =~ m/^>/) {
+      unshift @$lines, $line;
+      # let the FASTA parser do the work now
+      return parse_fasta(\@$lines);
+    }
   }
-  return $at_seq;
+  return 0;
 }
 
 #......................................................................................
@@ -225,7 +242,7 @@ sub parse_gfa {
     # this is NOT the original contigs, rather the unitigs
     # need to parse L (link) and P (path) to reconstruct the contigs
     if ($x[0] eq 'S') {
-      print ">", $x[1], "\n", purify($x[2]), "\n";
+      print ">", $x[1], "\n", purify_dna($x[2]), "\n";
       $count++;
     }
   }
@@ -244,7 +261,7 @@ sub parse_genbank {
   foreach (@$lines) {
     chomp;
     if (m{^//}) {
-      print ">", $acc, "\n", purify($dna);
+      print ">", $acc, "\n", purify_dna($dna);
       $count++;
       $in_seq = 0;
       $dna = $acc = '';
@@ -290,7 +307,7 @@ sub parse_embl {
     chomp;
     if (m{^//}) {
       # end of record
-      print ">", $acc, "\n", purify($dna);
+      print ">", $acc, "\n", purify_dna($dna);
       $count++;
       $in_seq = 0;
       $dna = $acc = '';
@@ -327,12 +344,12 @@ sub parse_clustal {
   my %seq;
   my @order;  # keep track of sequence identifiers order
   foreach (@$lines) {
-    next unless m/^(\S+)\s+([A-Z-]+)(?:\s+\d+)?$/i; # uses '-' for gap, ignore optional position number
+    next unless m'^(\S+)\s+([A-Z-]+)(?:\s+\d+)?$'i; # uses '-' for gap, ignore optional position number
     push @order, $1 unless exists $seq{$1};
     $seq{$1} .= $2."\n";
   }
   for my $id (@order) {
-    print ">", $id, "\n", purify($seq{$id});
+    print ">", $id, "\n", purify_dna($seq{$id});
   }
   return scalar(keys %seq);
 }
@@ -353,7 +370,7 @@ sub parse_stockholm {
     $seq{$id} .= $sq . "\n";
   }
   for my $id (@order) {
-    print ">", $id, "\n", purify($seq{$id});
+    print ">", $id, "\n", purify_dna($seq{$id});
   }
   return scalar(keys %seq);
 }
@@ -376,7 +393,7 @@ sub parse_pdb {
         splice(@x,4) );
   }
   for my $id (sort keys %seq) {
-    print ">", $id, "\n", purify($seq{$id}), "\n";
+    print ">", $id, "\n", purify_dna($seq{$id}), "\n";
   }
   return scalar(keys %seq);
 }

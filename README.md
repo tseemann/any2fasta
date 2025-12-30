@@ -96,6 +96,7 @@ OPTIONS
   -l       Lowercase the sequence
   -u       Uppercase the sequence
   -g       Include VERSION from GBK/EMBL files
+  -s       Strip sequence descriptions (FASTA,FASTQ)
 END
 ```
 ### Extensive test
@@ -140,6 +141,7 @@ END
 * `-q` will prevent logging messages being printed
 * `-k` will warn of bad inputs and continue on. not stop and error
 * `-g` will appened the version to the sequence ID 
+* `-s` removes `desc` from `>id desc` in FASTA,FASTQ,GFF
 
 ## Issues
 

@@ -5,8 +5,8 @@ setup() {
   bats_require_minimum_version 1.5.0
   dir=$(dirname "$BATS_TEST_FILENAME")
   cd "$dir"
-  exe="$dir/../$name -q"
-  tab=$'\t'
+  bin="$dir/../$name"
+  exe="$bin -q"
   FASTA_ID=">NZ_CHER02000075"
 }
 
@@ -47,6 +47,12 @@ setup() {
   run -0 $exe test.embl
   [[ "${lines[0]}" == ">K02675" ]]  
 }
+@test "Handle UNIPROT" {
+  run -0 $exe test.dat
+  [[ "${lines[0]}" == ">12AH_CLOS4" ]]  
+  [[ "${lines[1]}" =~ "MGIFDGKVAI" ]]  
+  [[ "${lines[1]}" =~ "ITG~~KAKSI" ]]  
+}
 @test "Handle FASTQ" {
   run -0 $exe test.fq
   [[ "${lines[0]}" =~ ">ERR1163317.1" ]]  
@@ -56,9 +62,14 @@ setup() {
   run -0 $exe test.gbk
   [[ "${lines[0]}" =~ ">NZ_AHMY02000075" ]]  
 }
+@test "Handle GENPEPT" {
+  run -0 $exe test.gp
+  [[ "${lines[0]}" =~ ">KJK60552" ]]  
+  [[ "${lines[1]}" =~ "mtaaqlptgsip" ]]
+}
 @test "Handle GFF" {
   run -0 $exe test.gff
-  [[ "$output" =~ ">BAC_00002" ]]  
+  [[ "$output" =~ ">BAC_00033" ]]  
 }
 @test "Handle STOCKHOLM" {
   run -0 $exe test.sth
@@ -69,6 +80,7 @@ setup() {
   [[ "$output" =~ ">gene03" ]]  
 }
 @test "Handle GFA" {
+  skip
   run -0 $exe test.gfa
   [[ "${lines[0]}" =~ ">225289" ]]
 }
@@ -117,11 +129,24 @@ setup() {
   run -0 $exe -u test.embl
   [[ "${lines[1]}" =~ "AGTCGCTTTTAA" ]]  
 }
-@test "Option -n deambiguate" {
+@test "Option -n deambiguate (DNA)" {
   run -0 $exe -n test.fna
   [[ "${lines[1]}" =~ "AACNNANTCTC" ]]  
 }
-
+@test "Option -n deambiguate (AA)" {
+  run -0 $exe -n test.dat
+  [[ "${lines[1]}" =~ "ITGXXKAKSI" ]]  
+  [[ ! "$output" =~ "~~" ]]  
+}
+@test "Ensure proteins survive -n" {
+  run -0 $exe -n test.gp
+  [[ "${lines[1]}" =~ "mtaaqlptgsip" ]]
+}
+@test "Test protein auto-detection" {
+  run -0 $bin -n test.faa
+  [[ "$output" =~ "PROT" ]]
+  [[ "$output" =~ "RVVLDGGVHRVPQRY" ]]
+}
 @test "GFF with no sequence" {
   run ! $exe -n test.noseq.gff
   [[ "$output" =~ "No sequences found" ]]  

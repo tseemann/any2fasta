@@ -9,7 +9,7 @@ use IO::Handle;
 
 #......................................................................................
 
-our $VERSION = "0.8.1";
+our $VERSION = "0.9.0";
 our $EXE = basename($0);
 our $STDIN = '/dev/stdin'; # '-' will be replaced with this
 our $URL = 'https://github.com/tseemann/any2fasta';
@@ -26,7 +26,8 @@ my %aa = (
   'SEC' => 'U', 'PYL' => 'O', 'ASX' => 'B', 'GLX' => 'Z', 
   'XAA' => 'X', 'TER' => '*'
 );
-
+my $AA = join '', sort values %aa;
+my $DNA = 'ATGCN';
 #......................................................................................
 
 sub usage {
@@ -42,7 +43,8 @@ sub usage {
     "  -v       Print version and exit\n",
     "  -q       No output while running, only errors\n",
     "  -k       Skip, don't die, on bad input files\n",
-    "  -n       Replace non-[AGTC] with 'N'\n",
+    "  -n       Purify sequences: DNA='N' AA='X'\n",
+    "  -p       Force protein mode (disables auto-detect)\n",
     "  -l       Lowercase the sequence\n",
     "  -u       Uppercase the sequence\n",
     "  -g       Include VERSION (GENBANK,EMBL)\n",
@@ -60,14 +62,11 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnlukgs', \%opt) or exit(-1);
+getopts('vhqnlukgsp', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
-my $skip = $opt{'k'};
-
-# to debug broken pipe errors in CI
-#STODUT->autoflush(1);
+my $prot = $opt{p};
 
 #......................................................................................
 sub msg {
@@ -88,6 +87,7 @@ msg("This is $EXE $VERSION");
 # put in order of most-likely to be encountered
 my @formats = (
   [ 'GENBANK',   qr/^LOCUS\h/,       \&parse_genbank   ],
+  [ 'UNIPROT',   qr/^ID\h+Reviewed/, \&parse_embl      ],
   [ 'EMBL',      qr/^ID\h/,          \&parse_embl      ],
   [ 'FASTA',     qr/^>\S/,           \&parse_fasta     ],
   [ 'FASTQ',     qr/^@\S/,           \&parse_fastq     ],
@@ -102,7 +102,7 @@ my @formats = (
 my $processed=0;
 
 # are we in '-k' skip mode?
-my $notify = $skip ? \&wrn :\&err;
+my $notify = $opt{k} ? \&wrn :\&err;
 
 FILE:
 for my $infile (@ARGV) {
@@ -161,12 +161,29 @@ exit(0);
 
 #......................................................................................
 
-sub purify_dna {
-  my($dna) = @_;
-  $dna =~ s/[^ATGCN\n\r-]/N/gi if $opt{n};
-  $dna = lc($dna) if $opt{l};
-  $dna = uc($dna) if $opt{u};
-  return $dna;
+sub purify_seq {
+  my($seq) = @_;
+  if ($opt{n}) {
+    if ($prot or $opt{'p'}) {
+      $seq =~ s/[^${AA}\v\-]/X/gi;
+    }
+    else {
+      $seq =~ s/[^${DNA}\v\-]/N/gi;
+    }
+  }            
+  $seq = lc($seq) if $opt{l};
+  $seq = uc($seq) if $opt{u};
+  return $seq;
+}
+
+#......................................................................................
+
+sub is_protein {
+  my $seq = shift;
+  my $len = length($seq);
+  $seq =~ s/[ATCG]//gi;
+  #msg("is_prot: $len / $seq");
+  return length($seq)/$len > 0.666;
 }
 
 #......................................................................................
@@ -185,14 +202,22 @@ sub purify_id {
 sub parse_fasta {
   my($lines) = @_;
   my $count=0;
+  my $sl = 0;
   for my $line (@$lines) {
     next if $line =~ m/^\s*$/;
     if ($line =~ m/^>/) {
       $line = purify_id($line);
       $count++;
+      $sl=0;
     }
     else {
-      $line = purify_dna($line);
+      $sl++;
+      # for first seq line in file, detect type
+      if ($count==1 and $sl==1 and is_protein($line)) {
+        $prot = is_protein($line);
+        msg("Auto-detected alphabet:", $prot ? 'PROT' : 'DNA');
+      }
+      $line = purify_seq($line);
     }
     print $line;
   }
@@ -208,7 +233,7 @@ sub parse_fastq {
   for ( my $i=0 ; $i < $#{$lines} ; $i+=4 ) {
     $lines->[$i] = purify_id($lines->[$i]);
     print ">", substr($lines->[$i], 1);
-    print purify_dna( $lines->[$i+1] );
+    print purify_seq( $lines->[$i+1] );
     $count++;
   }
   return $count;
@@ -243,7 +268,7 @@ sub parse_gfa {
     # this is NOT the original contigs, rather the unitigs
     # need to parse L (link) and P (path) to reconstruct the contigs
     if ($x[0] eq 'S') {
-      print ">", $x[1], "\n", purify_dna($x[2]), "\n";
+      print ">", $x[1], "\n", purify_seq($x[2]), "\n";
       $count++;
     }
   }
@@ -262,7 +287,7 @@ sub parse_genbank {
   foreach (@$lines) {
     chomp;
     if (m{^//}) {
-      print ">", $acc, "\n", purify_dna($dna);
+      print ">", $acc, "\n", purify_seq($dna);
       $count++;
       $in_seq = 0;
       $dna = $acc = '';
@@ -281,9 +306,11 @@ sub parse_genbank {
       $dna .= $s . "\n";
     }
     else {
-      # LOCUS  NZ_AHMY02000075  683 bp   DNA   linear   CON 23-NOV-2017
+      # gbk = LOCUS  NZ_AHMY02000075  683 bp   DNA   linear   CON 23-NOV-2017
+      # gp  = LOCUS  KJK60552     826 aa  linear   PLN 18-MAR-2015
       if (m/^LOCUS\s+(\S+)/) {
         $acc = $1;
+        $prot = m/\b\d+ aa\b/; # DNA or AA mode?
       }
       # VERSION     NZ_AHMY02000075.1
       # this is not elsif in case ther eis no VERSION
@@ -308,7 +335,7 @@ sub parse_embl {
     chomp;
     if (m{^//}) {
       # end of record
-      print ">", $acc, "\n", purify_dna($dna);
+      print ">", $acc, "\n", purify_seq($dna);
       $count++;
       $in_seq = 0;
       $dna = $acc = '';
@@ -316,18 +343,23 @@ sub parse_embl {
     }
     elsif (m/^SQ\s/) {
       # SQ   Sequence 569 BP; 145 A; 133 C; 152 G; 139 T; 0 other;
+      # SQ   SEQUENCE   259 AA;  27989 MW;  498AB8B2B9722DEC >
       $in_seq = 1;
+      $prot = m/\b\d+ AA\b/; # choose AA or DNA mode
       next;
     }
 
     if ($in_seq) {
       #      agtcgctttt aattatgaat gttgtaacta cattatcatc gctgtcagtc ttctggctgg        60
-      s/[\s\d]//g;
+      #      MGIFDGKVAI ITGGGKAKSI GYGIAVAYAK EGANLVLTGR NEQKLLDAKE ELERLYGIKV
+      #s/[\s\d]//g;
+      s/\h//g;
+      s/\d+$//;
       $dna .= $_ . "\n";
     }
     else {
       # ID   K02675; SV 1; linear; genomic DNA; STD; UNC; 569 BP.
-      if (m/^ID\s+([^;]+)/) {
+      if (m/^ID\h+([^;\h]+)/) {
         $acc = $1;
         if ($opt{g} and m/\bSV\s+(\d+)/) {
           $acc .= ".$1";
@@ -351,7 +383,7 @@ sub parse_clustal {
     $seq{$1} .= $2."\n";
   }
   for my $id (@order) {
-    print ">", $id, "\n", purify_dna($seq{$id});
+    print ">", $id, "\n", purify_seq($seq{$id});
   }
   return scalar(keys %seq);
 }
@@ -373,7 +405,7 @@ sub parse_stockholm {
     $seq{$id} .= $sq . "\n";
   }
   for my $id (@order) {
-    print ">", $id, "\n", purify_dna($seq{$id});
+    print ">", $id, "\n", purify_seq($seq{$id});
   }
   return scalar(keys %seq);
 }
@@ -396,7 +428,7 @@ sub parse_pdb {
         splice(@x,4) );
   }
   for my $id (sort keys %seq) {
-    print ">", $id, "\n", purify_dna($seq{$id}), "\n";
+    print ">", $id, "\n", purify_seq($seq{$id}), "\n";
   }
   return scalar(keys %seq);
 }

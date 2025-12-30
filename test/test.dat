@@ -1,0 +1,993 @@
+ID   12AH_CLOS4              Reviewed;         259 AA.
+AC   P21215;
+DT   01-AUG-1991, integrated into UniProtKB/Swiss-Prot.
+DT   18-JUN-2025, sequence version 2.
+DT   18-JUN-2025, entry version 65.
+DE   RecName: Full=12alpha-hydroxysteroid dehydrogenase {ECO:0000303|PubMed:2007406};
+DE            Short=HSDH {ECO:0000303|PubMed:2007406};
+DE            EC=1.1.1.176 {ECO:0000269|PubMed:2007406};
+GN   ORFNames=HMPREF0262_01073 {ECO:0000312|EMBL:ERJ00208.1};
+OS   Clostridium sp. (strain ATCC 29733 / VPI C48-50).
+OC   Bacteria; Bacillati; Bacillota; Clostridia; Eubacteriales; Clostridiaceae;
+OC   Clostridium.
+OX   NCBI_TaxID=1507;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=ATCC 29733 / VPI C48-50;
+RA   Weinstock G., Sodergren E., Wylie T., Fulton L., Fulton R., Fronick C.,
+RA   O'Laughlin M., Godfrey J., Miner T., Herter B., Appelbaum E., Cordes M.,
+RA   Lek S., Wollam A., Pepin K.H., Palsikar V.B., Mitreva M., Wilson R.K.;
+RL   Submitted (JUL-2013) to the EMBL/GenBank/DDBJ databases.
+RN   [2]
+RP   PROTEIN SEQUENCE OF 1-30, FUNCTION, CATALYTIC ACTIVITY, BIOPHYSICOCHEMICAL
+RP   PROPERTIES, SUBUNIT, AND REACTION MECHANISM.
+RC   STRAIN=ATCC 29733 / VPI C48-50;
+RX   PubMed=2007406; DOI=10.1111/j.1432-1033.1991.tb15835.x;
+RA   Braun M., Luensdorf H., Bueckmann A.F.;
+RT   "12 alpha-hydroxysteroid dehydrogenase from Clostridium group P, strain C
+RT   48-50. Production, purification and characterization.";
+RL   Eur. J. Biochem. 196:439-450(1991).
+CC   -!- FUNCTION: Catalyzes the oxidation of the 12alpha-hydroxy group of bile
+CC       acids, like cholate and deoxycholate. Is also able to catalyze the
+CC       reverse reaction in vitro. Is likely involved in an epimerization
+CC       pathway of bile acids that converts hydroxy groups from alpha to beta
+CC       positions via stable oxo-intermediates, which occurs in the human gut.
+CC       {ECO:0000269|PubMed:2007406}.
+CC   -!- CATALYTIC ACTIVITY:
+CC       Reaction=cholate + NADP(+) = 3alpha,7alpha-dihydroxy-12-oxo-5beta-
+CC         cholanate + NADPH + H(+); Xref=Rhea:RHEA:14129, ChEBI:CHEBI:11901,
+CC         ChEBI:CHEBI:15378, ChEBI:CHEBI:29747, ChEBI:CHEBI:57783,
+CC         ChEBI:CHEBI:58349; EC=1.1.1.176;
+CC         Evidence={ECO:0000269|PubMed:2007406};
+CC       PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:14130;
+CC         Evidence={ECO:0000305|PubMed:2007406};
+CC   -!- CATALYTIC ACTIVITY:
+CC       Reaction=deoxycholate + NADP(+) = 12-dehydrodeoxycholate + NADPH +
+CC         H(+); Xref=Rhea:RHEA:84223, ChEBI:CHEBI:15378, ChEBI:CHEBI:23614,
+CC         ChEBI:CHEBI:57783, ChEBI:CHEBI:58349, ChEBI:CHEBI:233653;
+CC         Evidence={ECO:0000269|PubMed:2007406};
+CC       PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:84224;
+CC         Evidence={ECO:0000305|PubMed:2007406};
+CC   -!- BIOPHYSICOCHEMICAL PROPERTIES:
+CC       Kinetic parameters:
+CC         KM=35 uM for NADP(+) (at pH 8.0 and 25 degrees Celsius)
+CC         {ECO:0000269|PubMed:2007406};
+CC         KM=72 uM for cholate (at pH 8.0 and 25 degrees Celsius)
+CC         {ECO:0000269|PubMed:2007406};
+CC         KM=45 uM for deoxycholate (at pH 8.0 and 25 degrees Celsius)
+CC         {ECO:0000269|PubMed:2007406};
+CC         KM=8.5 uM for NADPH (at pH 8.0 and 25 degrees Celsius)
+CC         {ECO:0000269|PubMed:2007406};
+CC         KM=12 uM for 3alpha,7alpha-dihydroxy-12-oxo-5beta-cholanate (12-
+CC         oxochenodeoxycholate) (at pH 8.0 and 25 degrees Celsius)
+CC         {ECO:0000269|PubMed:2007406};
+CC         Vmax=162 umol/min/mg enzyme for the oxidation of cholate with NADP(+)
+CC         (at pH 8.0 and 25 degrees Celsius) {ECO:0000269|PubMed:2007406};
+CC         Vmax=164 umol/min/mg enzyme for the oxidation of deoxycholate with
+CC         NADP(+) (at pH 8.0 and 25 degrees Celsius)
+CC         {ECO:0000269|PubMed:2007406};
+CC         Vmax=67 umol/min/mg enzyme for the reduction of 3alpha,7alpha-
+CC         dihydroxy-12-oxo-5beta-cholanate with NADPH (at pH 8.0 and 25 degrees
+CC         Celsius) {ECO:0000269|PubMed:2007406};
+CC       pH dependence:
+CC         Optimum pH is 8.5-9.5 for the oxidation of cholate.
+CC         {ECO:0000269|PubMed:2007406};
+CC       Temperature dependence:
+CC         Optimum temperature is 55 degrees Celsius for the oxidation of
+CC         cholate. The thermostability of the enzyme is greatly increased in
+CC         the presence of NADP. {ECO:0000269|PubMed:2007406};
+CC   -!- SUBUNIT: Homotetramer. {ECO:0000269|PubMed:2007406}.
+CC   -!- MISCELLANEOUS: Enzyme reaction proceeds through an ordered bi-bi
+CC       mechanism, where NADP(+) binds first to the free enzyme before cholate,
+CC       and 12-oxochenodeoxycholate leaves first followed by NADPH.
+CC       {ECO:0000269|PubMed:2007406}.
+CC   -!- SIMILARITY: Belongs to the short-chain dehydrogenases/reductases (SDR)
+CC       family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; AWTA01000038; ERJ00208.1; -; Genomic_DNA.
+DR   PIR; S14099; S14099.
+DR   AlphaFoldDB; P21215; -.
+DR   SMR; P21215; -.
+DR   eggNOG; COG1028; Bacteria.
+DR   BioCyc; MetaCyc:MONOMER-15705; -.
+DR   GO; GO:0047013; F:cholate 12-alpha dehydrogenase (NADP+) activity; IEA:UniProtKB-EC.
+DR   GO; GO:0030573; P:bile acid catabolic process; IEA:UniProtKB-KW.
+DR   GO; GO:0016042; P:lipid catabolic process; IEA:UniProtKB-KW.
+DR   InterPro; IPR036291; NAD(P)-bd_dom_sf.
+DR   SUPFAM; SSF51735; NAD(P)-binding Rossmann-fold domains; 1.
+DR   PROSITE; PS00061; ADH_SHORT; 1.
+PE   1: Evidence at protein level;
+KW   Bile acid catabolism; Direct protein sequencing; Lipid degradation;
+KW   Lipid metabolism; NADP; Oxidoreductase; Steroid metabolism.
+FT   CHAIN           1..259
+FT                   /note="12alpha-hydroxysteroid dehydrogenase"
+FT                   /id="PRO_0000064347"
+FT   ACT_SITE        162
+FT                   /note="Proton acceptor"
+FT                   /evidence="ECO:0000255|PROSITE-ProRule:PRU10001"
+SQ   SEQUENCE   259 AA;  27989 MW;  498AB8B2B9722DEC CRC64;
+     MGIFDGKVAI ITG~~KAKSI GYGIAVAYAK EGANLVLTGR NEQKLLDAKE ELERLYGIKV
+     LPLAVDVTPS DESEDRVKEA VQKVIAEFGR IDVLINNAQA SASGIPLSMQ TKDHFDLGIY
+     SGLYATFYYM RECYPYLKET QGSVINFASG AGLFGNVGQC SYAAAKEGIR GLSRVAATEW
+     GKDNINVNVV CPLAMTAQLE NFKLSYPEAY EKNLRGVPMG RFGDPELDIG RVCVQLGSPD
+     FKYMSGETLT LEGGMGQRP
+//
+ID   12KD_MYCSM              Reviewed;          24 AA.
+AC   P80438;
+DT   01-NOV-1995, integrated into UniProtKB/Swiss-Prot.
+DT   01-NOV-1995, sequence version 1.
+DT   05-FEB-2025, entry version 26.
+DE   RecName: Full=12 kDa protein;
+DE   Flags: Fragment;
+OS   Mycolicibacterium smegmatis (Mycobacterium smegmatis).
+OC   Bacteria; Bacillati; Actinomycetota; Actinomycetes; Mycobacteriales;
+OC   Mycobacteriaceae; Mycolicibacterium.
+OX   NCBI_TaxID=1772;
+RN   [1]
+RP   PROTEIN SEQUENCE.
+RA   Pahl A., Keller U.;
+RL   Submitted (MAR-1995) to UniProtKB.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+PE   1: Evidence at protein level;
+KW   Direct protein sequencing.
+FT   CHAIN           1..>24
+FT                   /note="12 kDa protein"
+FT                   /id="PRO_0000064349"
+FT   NON_TER         24
+SQ   SEQUENCE   24 AA;  2766 MW;  0D19F1F488DB3201 CRC64;
+     MFHVLTLTYL CPLDVVXQTR PAHV
+//
+ID   12OLP_LISIN             Reviewed;        1086 AA.
+AC   Q92AT0;
+DT   01-APR-2015, integrated into UniProtKB/Swiss-Prot.
+DT   01-DEC-2001, sequence version 1.
+DT   05-FEB-2025, entry version 101.
+DE   RecName: Full=1,2-beta-oligoglucan phosphorylase {ECO:0000305};
+DE            EC=2.4.1.333 {ECO:0000269|PubMed:24647662};
+GN   OrderedLocusNames=lin1839 {ECO:0000312|EMBL:CAC97070.1};
+OS   Listeria innocua serovar 6a (strain ATCC BAA-680 / CLIP 11262).
+OC   Bacteria; Bacillati; Bacillota; Bacilli; Bacillales; Listeriaceae;
+OC   Listeria.
+OX   NCBI_TaxID=272626;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=ATCC BAA-680 / CLIP 11262 {ECO:0000312|Proteomes:UP000002513};
+RX   PubMed=11679669; DOI=10.1126/science.1063447;
+RA   Glaser P., Frangeul L., Buchrieser C., Rusniok C., Amend A., Baquero F.,
+RA   Berche P., Bloecker H., Brandt P., Chakraborty T., Charbit A.,
+RA   Chetouani F., Couve E., de Daruvar A., Dehoux P., Domann E.,
+RA   Dominguez-Bernal G., Duchaud E., Durant L., Dussurget O., Entian K.-D.,
+RA   Fsihi H., Garcia-del Portillo F., Garrido P., Gautier L., Goebel W.,
+RA   Gomez-Lopez N., Hain T., Hauf J., Jackson D., Jones L.-M., Kaerst U.,
+RA   Kreft J., Kuhn M., Kunst F., Kurapkat G., Madueno E., Maitournam A.,
+RA   Mata Vicente J., Ng E., Nedjari H., Nordsiek G., Novella S., de Pablos B.,
+RA   Perez-Diaz J.-C., Purcell R., Remmel B., Rose M., Schlueter T., Simoes N.,
+RA   Tierrez A., Vazquez-Boland J.-A., Voss H., Wehland J., Cossart P.;
+RT   "Comparative genomics of Listeria species.";
+RL   Science 294:849-852(2001).
+RN   [2]
+RP   FUNCTION, CATALYTIC ACTIVITY, SUBUNIT, AND BIOPHYSICOCHEMICAL PROPERTIES.
+RX   PubMed=24647662; DOI=10.1371/journal.pone.0092353;
+RA   Nakajima M., Toyoizumi H., Abe K., Nakai H., Taguchi H., Kitaoka M.;
+RT   "1,2-beta-Oligoglucan phosphorylase from Listeria innocua.";
+RL   PLoS ONE 9:E92353-E92353(2014).
+CC   -!- FUNCTION: Catalyzes the reversible phosphorolysis of beta-(1->2)-D-
+CC       glucans. The minimum length of the substrate for the phosphorolytic
+CC       reaction is 3 D-glucose units. {ECO:0000269|PubMed:24647662}.
+CC   -!- CATALYTIC ACTIVITY:
+CC       Reaction=[(1->2)-beta-D-glucosyl](n) + phosphate = [(1->2)-beta-D-
+CC         glucosyl](n-1) + alpha-D-glucose 1-phosphate; Xref=Rhea:RHEA:47684,
+CC         Rhea:RHEA-COMP:11881, Rhea:RHEA-COMP:11882, ChEBI:CHEBI:27517,
+CC         ChEBI:CHEBI:43474, ChEBI:CHEBI:58601; EC=2.4.1.333;
+CC         Evidence={ECO:0000269|PubMed:24647662};
+CC   -!- BIOPHYSICOCHEMICAL PROPERTIES:
+CC       Kinetic parameters:
+CC         KM=8.5 mM for (beta-(1->2)-D-glucans) x 2 units in the synthetic
+CC         reaction {ECO:0000269|PubMed:24647662};
+CC         KM=6.0 mM for (beta-(1->2)-D-glucans) x 3 units in the synthetic
+CC         reaction {ECO:0000269|PubMed:24647662};
+CC         KM=6.8 mM for (beta-(1->2)-D-glucans) x 4 units in the synthetic
+CC         reaction {ECO:0000269|PubMed:24647662};
+CC         KM=1.2 mM for alpha-D-glucose 1-phosphate in the synthetic reaction
+CC         {ECO:0000269|PubMed:24647662};
+CC         KM=1.0 mM for (beta-(1->2)-D-glucans) x 3 units in the phosphorolytic
+CC         reaction {ECO:0000269|PubMed:24647662};
+CC         KM=1.2 mM for (beta-(1->2)-D-glucans) x 4 units in the phosphorolytic
+CC         reaction {ECO:0000269|PubMed:24647662};
+CC         KM=1.8 mM for (beta-(1->2)-D-glucans) x 5 units in the phosphorolytic
+CC         reaction {ECO:0000269|PubMed:24647662};
+CC         Note=kcat is 97 sec(-1) for (beta-(1->2)-D-glucans) x 2 units in the
+CC         synthetic reaction. kcat is 110 sec(-1) for (beta-(1->2)-D-glucans) x
+CC         3 units in the synthetic reaction. kcat is 90 sec(-1) for (beta-
+CC         (1->2)-D-glucans) x 4 units in the synthetic reaction. kcat is 43
+CC         sec(-1) for alpha-D-glucose 1-phosphate in the synthetic reaction.
+CC         kcat is 19 sec(-1) for (beta-(1->2)-D-glucans) x 3 units in the
+CC         phosphorolytic reaction. kcat is 30 sec(-1) for (beta-(1->2)-D-
+CC         glucans) x 4 units in the phosphorolytic reaction. kcat is 31 sec(-1)
+CC         for (beta-(1->2)-D-glucans) x 5 units in the phosphorolytic reaction.
+CC         {ECO:0000269|PubMed:24647662};
+CC       pH dependence:
+CC         Optimum pH is 7.5-8.0. {ECO:0000269|PubMed:24647662};
+CC       Temperature dependence:
+CC         Optimum temperature is 37-45 degrees Celsius.
+CC         {ECO:0000269|PubMed:24647662};
+CC   -!- SUBUNIT: Monomer. {ECO:0000305|PubMed:24647662}.
+CC   -!- SIMILARITY: Belongs to the glycosyl hydrolase 94 family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; AL596170; CAC97070.1; -; Genomic_DNA.
+DR   PIR; AF1662; AF1662.
+DR   RefSeq; WP_010990982.1; NC_003212.1.
+DR   AlphaFoldDB; Q92AT0; -.
+DR   SMR; Q92AT0; -.
+DR   STRING; 272626.gene:17566195; -.
+DR   CAZy; GH94; Glycoside Hydrolase Family 94.
+DR   KEGG; lin:lin1839; -.
+DR   eggNOG; COG3459; Bacteria.
+DR   HOGENOM; CLU_009079_0_0_9; -.
+DR   OrthoDB; 9769991at2; -.
+DR   BRENDA; 2.4.1.333; 3044.
+DR   Proteomes; UP000002513; Chromosome.
+DR   GO; GO:0016757; F:glycosyltransferase activity; IEA:UniProtKB-KW.
+DR   GO; GO:0005975; P:carbohydrate metabolic process; IEA:InterPro.
+DR   Gene3D; 1.50.10.10; -; 1.
+DR   InterPro; IPR008928; 6-hairpin_glycosidase_sf.
+DR   InterPro; IPR012341; 6hp_glycosidase-like_sf.
+DR   InterPro; IPR033432; GH36_catalytic.
+DR   InterPro; IPR052047; GH94_Enzymes.
+DR   InterPro; IPR048771; SOGP_2nd.
+DR   InterPro; IPR048773; SOGP_C.
+DR   InterPro; IPR053831; SOGP_N.
+DR   PANTHER; PTHR37469:SF2; CELLOBIONIC ACID PHOSPHORYLASE; 1.
+DR   PANTHER; PTHR37469; CELLOBIONIC ACID PHOSPHORYLASE-RELATED; 1.
+DR   Pfam; PF17167; Glyco_hydro_36; 1.
+DR   Pfam; PF21250; SOGP_2nd; 1.
+DR   Pfam; PF21270; SOGP_4th; 1.
+DR   Pfam; PF21958; SOGP_N; 1.
+DR   SUPFAM; SSF48208; Six-hairpin glycosidases; 1.
+PE   1: Evidence at protein level;
+KW   Glycosyltransferase; Transferase.
+FT   CHAIN           1..1086
+FT                   /note="1,2-beta-oligoglucan phosphorylase"
+FT                   /id="PRO_0000432711"
+FT   ACT_SITE        741
+FT                   /note="Proton donor"
+FT                   /evidence="ECO:0000250|UniProtKB:Q76IQ9"
+SQ   SEQUENCE   1086 AA;  122895 MW;  5D87750286582095 CRC64;
+     MTMLKEIKKA DLSAAFYPSG ELAWLKLKDI MLNQVIQNPL ENRLSQIYVR AHVGDKIEIY
+     PLLSRDAEVG FNENGVEYRG VVGPFRYSVQ MHFHTRGWFY DVTVDGDLEF DLVYLQDLGL
+     AEQAAVRTNE AYMSQYIDYH VTEGATGFTV QARQNQPQNE RFPAVQIGAL TKIVGYATDG
+     FDIYGTNYKL TSELANLKEK SLPSRVYQYE FAQISLQTEL FTNHGETIFY GYATENQPKA
+     SGAPFENLAE LKSNISEQPY QPSTKAILNK HIGTPITGET ISDSWLQENF PDRIQEEQQN
+     GALLSFFTPN YAHVVMREKE AELERPHGSI LLDKVDVLNP EATLSATTYM YGAFLSQLVA
+     GNTNMNKWNS HARNPLNILQ TSGLRIYIEL DSELRLLGVP SVWETSTNYS TWYYQWNGDL
+     ITVQTTLTAD SKEAFVTVHS EKGHSYKLVL TNQVTMGTNE YDTTVKKEIK DGIVTYFPAE
+     DSPILETYPA LQFRVDGTYN ELTDERYFAK DYVGTAGLDV FVFEPSDKAT FHVQAKLSDE
+     FSKPTEDLEA NNKVIRASYD ELTAQFHLNH QSTTAEKLNL TVYWYAHQML VHYASPHGLE
+     QYSGAAWGTR DVSQGPFEFF LATGNKAVLR KLVLTIFSHQ YQDTGDWPQW FMFDKYTSIQ
+     QEESHGDVIV WPLKIIGDYL EMSGDAGILE EAIPFVDRES KTFTKEQGTL LEHIELAVKT
+     IEARFMKGTA LSNYGDGDWD DTLQPANAQL KKNMVSSWTV ALTYQTFKRL AAFLPVGEKY
+     ETLAKNVQAD FAKYMTNDTD VIPGFLYLEE GKAPVWMIHP EDKETNIKYR LIPLTRSVIS
+     ELVDKKQASR NFEIIGEHLL HPDGVRLMSE PAHYAGGVST HFKRAEQAAN FGREVGLQYV
+     HAHIRYIEAL AKIGDKSAWH MLDVINPINI KEVVPNAALR QSNTYFSSSD AAFLDRYQAQ
+     NEFGRVKEGS IPVKGGWRIY SSGPGIYLHQ LISSVLGIRQ TEDALIFDPI LPEELDGLEC
+     HIELDNYPLD LTFESADEGS IVVNGEKQPV ENGANLYRTG ALILPKKNLT TKCSQITIKF
+     QKNNRL
+//
+ID   12S_PROFR               Reviewed;         524 AA.
+AC   Q8GBW6; Q05617;
+DT   01-FEB-2005, integrated into UniProtKB/Swiss-Prot.
+DT   03-AUG-2022, sequence version 4.
+DT   09-APR-2025, entry version 96.
+DE   RecName: Full=Methylmalonyl-CoA carboxyltransferase 12S subunit;
+DE            EC=2.1.3.1 {ECO:0000269|PubMed:8366018};
+DE   AltName: Full=Transcarboxylase 12S subunit {ECO:0000303|PubMed:8366018};
+OS   Propionibacterium freudenreichii subsp. shermanii.
+OC   Bacteria; Bacillati; Actinomycetota; Actinomycetes; Propionibacteriales;
+OC   Propionibacteriaceae; Propionibacterium.
+OX   NCBI_TaxID=1752;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [GENOMIC DNA], PROTEIN SEQUENCE OF 2-6; 13-39; 56-63;
+RP   71-112; 199-213; 252-280; 351-372; 395-405 AND 500-516, FUNCTION, CATALYTIC
+RP   ACTIVITY, AND SUBUNIT.
+RC   STRAIN=St33;
+RX   PubMed=8366018; DOI=10.1128/jb.175.17.5301-5308.1993;
+RA   Thornton C.G., Kumar G.K., Haase F.C., Phillips N.F.B., Woo S.B.,
+RA   Park V.M., Magner W.J., Shenoy B.C., Wood H.G., Samols D.;
+RT   "Primary structure of the monomer of the 12S subunit of transcarboxylase as
+RT   deduced from DNA and characterization of the product expressed in
+RT   Escherichia coli.";
+RL   J. Bacteriol. 175:5301-5308(1993).
+RN   [2] {ECO:0007744|PDB:1ON3, ECO:0007744|PDB:1ON9}
+RP   NUCLEOTIDE SEQUENCE [MRNA], AND X-RAY CRYSTALLOGRAPHY (1.9 ANGSTROMS).
+RX   PubMed=12743028; DOI=10.1093/emboj/cdg244;
+RA   Hall P.R., Wang Y.-F., Rivera-Hainaj R.E., Zheng X., Pusztai-Carey M.,
+RA   Carey P.R., Yee V.C.;
+RT   "Transcarboxylase 12S crystal structure: hexamer assembly and substrate
+RT   binding to a multienzyme core.";
+RL   EMBO J. 22:2334-2347(2003).
+CC   -!- FUNCTION: The 12S subunit specifically catalyzes the transfer of the
+CC       carboxyl group of methylmalonyl CoA to the biotin of the 1.3S subunit
+CC       forming propanoyl-CoA and carboxylated 1.3S-biotin.
+CC       {ECO:0000269|PubMed:8366018}.
+CC   -!- CATALYTIC ACTIVITY:
+CC       Reaction=(S)-methylmalonyl-CoA + pyruvate = propanoyl-CoA +
+CC         oxaloacetate; Xref=Rhea:RHEA:20764, ChEBI:CHEBI:15361,
+CC         ChEBI:CHEBI:16452, ChEBI:CHEBI:57327, ChEBI:CHEBI:57392; EC=2.1.3.1;
+CC         Evidence={ECO:0000269|PubMed:8366018};
+CC   -!- SUBUNIT: Homohexamer (PubMed:12743028, PubMed:8366018).
+CC       Transcarboxylase is composed of three subunits: 1.3S, 5S, and 12S. The
+CC       core of the enzyme is composed of six 12S subunits. On each side of the
+CC       core there are three pairs of 5S subunits. Each 5S dimer is attached to
+CC       the core by two 1.3S subunits. Thus the total number of chains is 30 (6
+CC       + 12 + 12) (Probable). {ECO:0000269|PubMed:12743028,
+CC       ECO:0000269|PubMed:8366018, ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; L04196; AAA25676.1; -; Genomic_DNA.
+DR   EMBL; AJ535715; CAD59919.1; -; mRNA.
+DR   PIR; A48665; A48665.
+DR   RefSeq; WP_013161731.1; NZ_JBHSTU010000026.1.
+DR   PDB; 1ON3; X-ray; 1.90 A; A/B/C/D/E/F=2-518.
+DR   PDB; 1ON9; X-ray; 2.00 A; A/B/C/D/E/F=2-518.
+DR   PDBsum; 1ON3; -.
+DR   PDBsum; 1ON9; -.
+DR   AlphaFoldDB; Q8GBW6; -.
+DR   SMR; Q8GBW6; -.
+DR   DrugBank; DB04045; (R)-methylmalonyl-CoA.
+DR   DrugBank; DB04183; Methylmalonic Acid.
+DR   GeneID; 61221526; -.
+DR   OMA; HYKYERT; -.
+DR   BioCyc; MetaCyc:MONOMER-12429; -.
+DR   BRENDA; 2.1.3.1; 5032.
+DR   EvolutionaryTrace; Q8GBW6; -.
+DR   GO; GO:0009317; C:acetyl-CoA carboxylase complex; IEA:InterPro.
+DR   GO; GO:0003989; F:acetyl-CoA carboxylase activity; IEA:InterPro.
+DR   GO; GO:0047154; F:methylmalonyl-CoA carboxytransferase activity; IEA:UniProtKB-EC.
+DR   GO; GO:0004658; F:propionyl-CoA carboxylase activity; IEA:TreeGrafter.
+DR   GO; GO:0006633; P:fatty acid biosynthetic process; IEA:InterPro.
+DR   FunFam; 3.90.226.10:FF:000017; Propionyl-CoA carboxylase subunit beta 5; 1.
+DR   Gene3D; 3.90.226.10; 2-enoyl-CoA Hydratase, Chain A, domain 1; 2.
+DR   InterPro; IPR051047; AccD/PCCB.
+DR   InterPro; IPR034733; AcCoA_carboxyl_beta.
+DR   InterPro; IPR000438; Acetyl_CoA_COase_Trfase_b_su.
+DR   InterPro; IPR029045; ClpP/crotonase-like_dom_sf.
+DR   InterPro; IPR011763; COA_CT_C.
+DR   InterPro; IPR011762; COA_CT_N.
+DR   PANTHER; PTHR43842; PROPIONYL-COA CARBOXYLASE BETA CHAIN; 1.
+DR   PANTHER; PTHR43842:SF2; PROPIONYL-COA CARBOXYLASE BETA CHAIN, MITOCHONDRIAL; 1.
+DR   Pfam; PF01039; Carboxyl_trans; 1.
+DR   PRINTS; PR01070; ACCCTRFRASEB.
+DR   SUPFAM; SSF52096; ClpP/crotonase; 2.
+DR   PROSITE; PS50989; COA_CT_CTER; 1.
+DR   PROSITE; PS50980; COA_CT_NTER; 1.
+PE   1: Evidence at protein level;
+KW   3D-structure; Direct protein sequencing; Transferase.
+FT   INIT_MET        1
+FT                   /note="Removed"
+FT                   /evidence="ECO:0000269|PubMed:8366018"
+FT   CHAIN           2..524
+FT                   /note="Methylmalonyl-CoA carboxyltransferase 12S subunit"
+FT                   /id="PRO_0000146817"
+FT   DOMAIN          13..268
+FT                   /note="CoA carboxyltransferase N-terminal"
+FT                   /evidence="ECO:0000255|PROSITE-ProRule:PRU01136"
+FT   DOMAIN          274..506
+FT                   /note="CoA carboxyltransferase C-terminal"
+FT                   /evidence="ECO:0000255|PROSITE-ProRule:PRU01137"
+FT   REGION          13..506
+FT                   /note="Carboxyltransferase"
+FT                   /evidence="ECO:0000255|PROSITE-ProRule:PRU01138"
+FT   CONFLICT        35
+FT                   /note="R -> L (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        113..126
+FT                   /note="GETQSTKVVETMEQ -> WRDAVHEGRRDDGT (in Ref. 1;
+FT                   AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        143
+FT                   /note="Missing (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        181..182
+FT                   /note="GG -> C (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        227..236
+FT                   /note="AHMAISGNIH -> PIWPSRAIY (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        377
+FT                   /note="Missing (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        390
+FT                   /note="A -> R (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        406..432
+FT                   /note="VVLRKAYGGSYLAMCNRDLGADAVYAW -> CLATPTAAPTWPCATVTLVPT
+FT                   PCTPV (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        474..482
+FT                   /note="AFNTPYVAA -> GSTRRTWR (in Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   CONFLICT        519..524
+FT                   /note="HGNFPC -> PWKLPLLSEEEIMADEEEKDLMIATLNKRVASLESELGSLQS
+FT                   DTQGVTEDVLTAISAVAAYLGNDGSAEVVHFAPSPNWVREGRRALQNHSIR (in
+FT                   Ref. 1; AAA25676)"
+FT                   /evidence="ECO:0000305"
+FT   HELIX           13..28
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   TURN            29..31
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           33..41
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           47..54
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          61..63
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   TURN            73..78
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           82..85
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          86..93
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          96..103
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   TURN            105..107
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           108..110
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           114..130
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          134..140
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           145..148
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           149..165
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   TURN            166..168
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          171..181
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           182..184
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           185..189
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          190..196
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          200..204
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           206..213
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           219..223
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           225..230
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          236..241
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           242..254
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           277..281
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           294..300
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           302..304
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          306..310
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          317..324
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          327..334
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           339..341
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           345..360
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          365..371
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           378..382
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           385..398
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          403..412
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           413..417
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   TURN            418..420
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           422..424
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          427..431
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          436..440
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           442..449
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           451..456
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          457..459
+FT                   /evidence="ECO:0007829|PDB:1ON9"
+FT   HELIX           460..475
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           478..483
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   STRAND          486..490
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           493..495
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           496..506
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+FT   HELIX           507..509
+FT                   /evidence="ECO:0007829|PDB:1ON3"
+SQ   SEQUENCE   524 AA;  56397 MW;  C04354D5FD92C2DB CRC64;
+     MAENNNLKLA STMEGRVEQL AEQRQVIEAG GGERRVEKQH SQGKQTARER LNNLLDPHSF
+     DEVGAFRKHR TTLFGMDKAV VPADGVVTGR GTILGRPVHA ASQDFTVMGG SAGETQSTKV
+     VETMEQALLT GTPFLFFYDS GGARIQEGID SLSGYGKMFF ANVKLSGVVP QIAIIAGPCA
+     GGASYSPALT DFIIMTKKAH MFITGPQVIK SVTGEDVTAD ELGGAEAHMA ISGNIHFVAE
+     DDDAAELIAK KLLSFLPQNN TEEASFVNPN NDVSPNTELR DIVPIDGKKG YDVRDVIAKI
+     VDWGDYLEVK AGYATNLVTA FARVNGRSVG IVANQPSVMS GCLDINASDK AAEFVNFCDS
+     FNIPLVQLVD VPGFLPGVQQ EYGGIIRHGA KMLYAYSEAT VPKITVVLRK AYGGSYLAMC
+     NRDLGADAVY AWPSAEIAVM GAEGAANVIF RKEIKAADDP DAMRAEKIEE YQNAFNTPYV
+     AAARGQVDDV IDPADTRRKI ASALEMYATK RQTRPAKKHG NFPC
+//
+ID   14KD_CERSP              Reviewed;         124 AA.
+AC   P16536;
+DT   01-AUG-1990, integrated into UniProtKB/Swiss-Prot.
+DT   01-APR-1993, sequence version 2.
+DT   09-APR-2025, entry version 75.
+DE   RecName: Full=14 kDa peptide of ubiquinol-cytochrome c2 oxidoreductase complex;
+OS   Cereibacter sphaeroides (Rhodobacter sphaeroides).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Rhodobacterales; Paracoccaceae; Cereibacter.
+OX   NCBI_TaxID=1063;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [GENOMIC DNA].
+RX   PubMed=1651916; DOI=10.1016/s0021-9258(18)98455-3;
+RA   Usui S., Yu L.;
+RT   "Subunit IV (Mr = 14,384) of the cytochrome b-c1 complex from Rhodobacter
+RT   sphaeroides. Cloning, DNA sequencing, and ubiquinone binding domain.";
+RL   J. Biol. Chem. 266:15644-15649(1991).
+RN   [2]
+RP   PROTEIN SEQUENCE OF 61-108.
+RX   PubMed=2153104; DOI=10.1016/s0021-9258(19)40179-8;
+RA   Purvis D.J., Theiler R., Niederman R.A.;
+RT   "Chromatographic and protein chemical analysis of the ubiquinol-cytochrome
+RT   c2 oxidoreductase isolated from Rhodobacter sphaeroides.";
+RL   J. Biol. Chem. 265:1208-1215(1990).
+CC   -!- FUNCTION: Component of the ubiquinol-cytochrome c reductase complex
+CC       (complex III or cytochrome b-c1 complex), which is a respiratory chain
+CC       that generates an electrochemical potential coupled to ATP synthesis.
+CC   -!- SUBCELLULAR LOCATION: Cell inner membrane {ECO:0000305}; Single-pass
+CC       membrane protein {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; M68939; AAA26107.1; -; Genomic_DNA.
+DR   PIR; A40794; A40794.
+DR   RefSeq; WP_002719838.1; NZ_WTFI01000002.1.
+DR   PDB; 7TLJ; EM; 2.91 A; D/H=1-124.
+DR   PDBsum; 7TLJ; -.
+DR   AlphaFoldDB; P16536; -.
+DR   EMDB; EMD-25989; -.
+DR   SMR; P16536; -.
+DR   GeneID; 3720378; -.
+DR   OMA; DLRKYGW; -.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0016491; F:oxidoreductase activity; IEA:UniProtKB-KW.
+PE   1: Evidence at protein level;
+KW   3D-structure; Cell inner membrane; Cell membrane;
+KW   Direct protein sequencing; Electron transport; Membrane; Oxidoreductase;
+KW   Respiratory chain; Transmembrane; Transmembrane helix; Transport.
+FT   CHAIN           1..124
+FT                   /note="14 kDa peptide of ubiquinol-cytochrome c2
+FT                   oxidoreductase complex"
+FT                   /id="PRO_0000064353"
+FT   TRANSMEM        85..102
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+FT   HELIX           82..99
+FT                   /evidence="ECO:0007829|PDB:7TLJ"
+SQ   SEQUENCE   124 AA;  14393 MW;  E390C856C1D752F3 CRC64;
+     MFSFIDDIPS FEQIKARVRD DLRKHGWEKR WNDSRLVQKS RELLNDEELK IDPATWIWKR
+     MPSREEVAAR RQRDFETVWK YRYRLGGFAS GALLALALAG IFSTGNFGGS SDAGNRPSVV
+     YPIE
+//
+ID   14KL_BRUA1              Reviewed;         147 AA.
+AC   B2SAT5;
+DT   20-JAN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   01-JUL-2008, sequence version 1.
+DT   09-APR-2025, entry version 66.
+DE   RecName: Full=Lectin-like protein BA14k;
+DE   Flags: Precursor;
+GN   OrderedLocusNames=BAbS19_II04750;
+OS   Brucella abortus (strain S19).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Hyphomicrobiales; Brucellaceae; Brucella/Ochrobactrum group; Brucella.
+OX   NCBI_TaxID=430066;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=S19;
+RX   PubMed=18478107; DOI=10.1371/journal.pone.0002193;
+RA   Crasta O.R., Folkerts O., Fei Z., Mane S.P., Evans C., Martino-Catt S.,
+RA   Bricker B., Yu G., Du L., Sobral B.W.;
+RT   "Genome sequence of Brucella abortus vaccine strain S19 compared to
+RT   virulent strains yields candidate virulence genes.";
+RL   PLoS ONE 3:E2193-E2193(2008).
+CC   -!- FUNCTION: Has immunoglobulin-binding and hemagglutination properties,
+CC       and can bind to mannose. Essential for virulence. May be involved in
+CC       LPS biosynthesis or polysaccharide transport (By similarity).
+CC       {ECO:0000250}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane {ECO:0000305}; Single-pass membrane
+CC       protein {ECO:0000305}.
+CC   -!- SIMILARITY: Belongs to the BA14k family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; CP000888; ACD73972.1; -; Genomic_DNA.
+DR   RefSeq; WP_002965908.1; NC_010740.1.
+DR   AlphaFoldDB; B2SAT5; -.
+DR   KEGG; bmc:BAbS19_II04750; -.
+DR   HOGENOM; CLU_095992_0_0_5; -.
+DR   Proteomes; UP000002565; Chromosome 2.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0030246; F:carbohydrate binding; IEA:UniProtKB-KW.
+DR   InterPro; IPR012413; BA14K.
+DR   Pfam; PF07886; BA14K; 1.
+PE   3: Inferred from homology;
+KW   Cell membrane; Lectin; Membrane; Signal; Transmembrane;
+KW   Transmembrane helix; Virulence.
+FT   SIGNAL          1..26
+FT                   /evidence="ECO:0000255"
+FT   CHAIN           27..147
+FT                   /note="Lectin-like protein BA14k"
+FT                   /id="PRO_0000361295"
+FT   TRANSMEM        80..100
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+SQ   SEQUENCE   147 AA;  16823 MW;  7CEE6F1FB2BB38DB CRC64;
+     MNSFRKTCAG ALALIFGATS IVPTVAAPMN MDRPAINQNV IQARAHYRPQ NYNRGHRPGY
+     WHGHRGYRHY RHGYRRHNDG WWYPLAAFGA GAIIGGAISQ PRPVYRAPAG SPHVQWCYSR
+     YKSYRASDNT FQPYNGPRKQ CRSPYSR
+//
+ID   14KL_BRUA2              Reviewed;         147 AA.
+AC   Q2YKY9; Q44701; Q578L8;
+DT   20-JAN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   07-FEB-2006, sequence version 1.
+DT   09-APR-2025, entry version 73.
+DE   RecName: Full=Lectin-like protein BA14k;
+DE   Flags: Precursor;
+GN   OrderedLocusNames=BAB2_0505;
+OS   Brucella abortus (strain 2308).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Hyphomicrobiales; Brucellaceae; Brucella/Ochrobactrum group; Brucella.
+OX   NCBI_TaxID=359391;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [GENOMIC DNA], AND IMMUNOGENICITY.
+RX   PubMed=9673296; DOI=10.1128/iai.66.8.4000-4003.1998;
+RA   Chirhart-Gilleland R.L., Kovach M.E., Elzer P.H., Jennings S.R.,
+RA   Roop R.M. II;
+RT   "Identification and characterization of a 14-kilodalton Brucella abortus
+RT   protein reactive with antibodies from naturally and experimentally infected
+RT   hosts and T lymphocytes from experimentally infected BALB/c mice.";
+RL   Infect. Immun. 66:4000-4003(1998).
+RN   [2]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=2308;
+RX   PubMed=16299333; DOI=10.1128/iai.73.12.8353-8361.2005;
+RA   Chain P.S., Comerci D.J., Tolmasky M.E., Larimer F.W., Malfatti S.A.,
+RA   Vergez L.M., Aguero F., Land M.L., Ugalde R.A., Garcia E.;
+RT   "Whole-genome analyses of speciation events in pathogenic Brucellae.";
+RL   Infect. Immun. 73:8353-8361(2005).
+RN   [3]
+RP   LECTIN-LIKE ACTIVITY, POSSIBLE FUNCTION IN LPS SYNTHESIS, AND DISRUPTION
+RP   PHENOTYPE.
+RX   PubMed=16368972; DOI=10.1128/iai.74.1.183-191.2006;
+RA   Vemulapalli T.H., Vemulapalli R., Schurig G.G., Boyle S.M.,
+RA   Sriranganathan N.;
+RT   "Role in virulence of a Brucella abortus protein exhibiting lectin-like
+RT   activity.";
+RL   Infect. Immun. 74:183-191(2006).
+CC   -!- FUNCTION: Has immunoglobulin-binding and hemagglutination properties,
+CC       and can bind to mannose. Essential for virulence. May be involved in
+CC       LPS biosynthesis or polysaccharide transport.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane {ECO:0000305}; Single-pass membrane
+CC       protein {ECO:0000305}.
+CC   -!- DISRUPTION PHENOTYPE: Rough phenotype, with an aberrant O-antigen
+CC       profile. Mutants exhibit a reduced ability to colonize mouse spleens
+CC       but are still capable of producing a persistent infection, albeit with
+CC       a low bacterial burden. {ECO:0000269|PubMed:16368972}.
+CC   -!- MISCELLANEOUS: Strongly immunoreactive, inducing both humoral and
+CC       cellular immune responses in hosts during the course of infection.
+CC   -!- SIMILARITY: Belongs to the BA14k family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; U62541; AAC31618.1; -; Genomic_DNA.
+DR   EMBL; AM040265; CAJ12671.1; -; Genomic_DNA.
+DR   RefSeq; WP_002965908.1; NZ_KN046823.1.
+DR   AlphaFoldDB; Q2YKY9; -.
+DR   STRING; 359391.BAB2_0505; -.
+DR   KEGG; bmf:BAB2_0505; -.
+DR   PATRIC; fig|359391.11.peg.2695; -.
+DR   HOGENOM; CLU_095992_0_0_5; -.
+DR   PhylomeDB; Q2YKY9; -.
+DR   Proteomes; UP000002719; Chromosome II.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0030246; F:carbohydrate binding; IEA:UniProtKB-KW.
+DR   InterPro; IPR012413; BA14K.
+DR   Pfam; PF07886; BA14K; 1.
+PE   1: Evidence at protein level;
+KW   Cell membrane; Lectin; Membrane; Reference proteome; Signal; Transmembrane;
+KW   Transmembrane helix; Virulence.
+FT   SIGNAL          1..26
+FT                   /evidence="ECO:0000255"
+FT   CHAIN           27..147
+FT                   /note="Lectin-like protein BA14k"
+FT                   /id="PRO_0000361296"
+FT   TRANSMEM        80..100
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+SQ   SEQUENCE   147 AA;  16823 MW;  7CEE6F1FB2BB38DB CRC64;
+     MNSFRKTCAG ALALIFGATS IVPTVAAPMN MDRPAINQNV IQARAHYRPQ NYNRGHRPGY
+     WHGHRGYRHY RHGYRRHNDG WWYPLAAFGA GAIIGGAISQ PRPVYRAPAG SPHVQWCYSR
+     YKSYRASDNT FQPYNGPRKQ CRSPYSR
+//
+ID   14KL_BRUA4              Reviewed;         151 AA.
+AC   A6X5T5;
+DT   20-JAN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   21-AUG-2007, sequence version 1.
+DT   09-APR-2025, entry version 73.
+DE   RecName: Full=Lectin-like protein BA14k;
+DE   Flags: Precursor;
+GN   OrderedLocusNames=Oant_3884;
+OS   Brucella anthropi (strain ATCC 49188 / DSM 6882 / CCUG 24695 / JCM 21032 /
+OS   LMG 3331 / NBRC 15819 / NCTC 12168 / Alc 37) (Ochrobactrum anthropi).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Hyphomicrobiales; Brucellaceae; Brucella/Ochrobactrum group; Brucella.
+OX   NCBI_TaxID=439375;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=ATCC 49188 / DSM 6882 / CCUG 24695 / JCM 21032 / LMG 3331 / NBRC
+RC   15819 / NCTC 12168 / Alc 37;
+RX   PubMed=21685287; DOI=10.1128/jb.05335-11;
+RA   Chain P.S., Lang D.M., Comerci D.J., Malfatti S.A., Vergez L.M., Shin M.,
+RA   Ugalde R.A., Garcia E., Tolmasky M.E.;
+RT   "Genome of Ochrobactrum anthropi ATCC 49188 T, a versatile opportunistic
+RT   pathogen and symbiont of several eukaryotic hosts.";
+RL   J. Bacteriol. 193:4274-4275(2011).
+CC   -!- FUNCTION: Has immunoglobulin-binding and hemagglutination properties,
+CC       and can bind to mannose. Essential for virulence. May be involved in
+CC       LPS biosynthesis or polysaccharide transport (By similarity).
+CC       {ECO:0000250}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane {ECO:0000305}; Single-pass membrane
+CC       protein {ECO:0000305}.
+CC   -!- SIMILARITY: Belongs to the BA14k family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; CP000759; ABS16589.1; -; Genomic_DNA.
+DR   RefSeq; WP_012093240.1; NC_009668.1.
+DR   AlphaFoldDB; A6X5T5; -.
+DR   STRING; 439375.Oant_3884; -.
+DR   KEGG; oan:Oant_3884; -.
+DR   PATRIC; fig|439375.7.peg.4053; -.
+DR   eggNOG; ENOG5033457; Bacteria.
+DR   HOGENOM; CLU_095992_0_0_5; -.
+DR   PhylomeDB; A6X5T5; -.
+DR   Proteomes; UP000002301; Chromosome 2.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0030246; F:carbohydrate binding; IEA:UniProtKB-KW.
+DR   InterPro; IPR012413; BA14K.
+DR   Pfam; PF07886; BA14K; 1.
+PE   3: Inferred from homology;
+KW   Cell membrane; Lectin; Membrane; Reference proteome; Signal; Transmembrane;
+KW   Transmembrane helix; Virulence.
+FT   SIGNAL          1..26
+FT                   /evidence="ECO:0000255"
+FT   CHAIN           27..151
+FT                   /note="Lectin-like protein BA14k"
+FT                   /id="PRO_5000262091"
+FT   TRANSMEM        83..103
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+SQ   SEQUENCE   151 AA;  17666 MW;  D50A0ADC9DD99128 CRC64;
+     MNIFKQTCVG AFAVIFGATS IAPTMAAPLN LERPVINHNV EQVRDHRRPP RHYNGHRPHR
+     PGYWNGHRGY RHYRHGYRRY NDGWWYPLAA FGAGAIIGGA VSQPRPVYRA PRMSNAHVQW
+     CYNRYKSYRS SDNTFQPYNG PRRQCYSPYS R
+//
+ID   14KL_BRUAB              Reviewed;         147 AA.
+AC   P0C8N0; Q44701; Q578L8;
+DT   20-JAN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   20-JAN-2009, sequence version 1.
+DT   09-APR-2025, entry version 58.
+DE   RecName: Full=Lectin-like protein BA14k;
+DE   Flags: Precursor;
+GN   OrderedLocusNames=BruAb2_0497;
+OS   Brucella abortus biovar 1 (strain 9-941).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Hyphomicrobiales; Brucellaceae; Brucella/Ochrobactrum group; Brucella.
+OX   NCBI_TaxID=262698;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=9-941;
+RX   PubMed=15805518; DOI=10.1128/jb.187.8.2715-2726.2005;
+RA   Halling S.M., Peterson-Burch B.D., Bricker B.J., Zuerner R.L., Qing Z.,
+RA   Li L.-L., Kapur V., Alt D.P., Olsen S.C.;
+RT   "Completion of the genome sequence of Brucella abortus and comparison to
+RT   the highly similar genomes of Brucella melitensis and Brucella suis.";
+RL   J. Bacteriol. 187:2715-2726(2005).
+CC   -!- FUNCTION: Has immunoglobulin-binding and hemagglutination properties,
+CC       and can bind to mannose. Essential for virulence. May be involved in
+CC       LPS biosynthesis or polysaccharide transport (By similarity).
+CC       {ECO:0000250}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane {ECO:0000305}; Single-pass membrane
+CC       protein {ECO:0000305}.
+CC   -!- SIMILARITY: Belongs to the BA14k family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; AE017224; AAX75916.1; -; Genomic_DNA.
+DR   PIR; AG3578; AG3578.
+DR   RefSeq; WP_002965908.1; NC_006933.1.
+DR   AlphaFoldDB; P0C8N0; -.
+DR   EnsemblBacteria; AAX75916; AAX75916; BruAb2_0497.
+DR   KEGG; bmb:BruAb2_0497; -.
+DR   HOGENOM; CLU_095992_0_0_5; -.
+DR   Proteomes; UP000000540; Chromosome II.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0030246; F:carbohydrate binding; IEA:UniProtKB-KW.
+DR   InterPro; IPR012413; BA14K.
+DR   Pfam; PF07886; BA14K; 1.
+PE   3: Inferred from homology;
+KW   Cell membrane; Lectin; Membrane; Signal; Transmembrane;
+KW   Transmembrane helix; Virulence.
+FT   SIGNAL          1..26
+FT                   /evidence="ECO:0000255"
+FT   CHAIN           27..147
+FT                   /note="Lectin-like protein BA14k"
+FT                   /id="PRO_0000361297"
+FT   TRANSMEM        80..100
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+SQ   SEQUENCE   147 AA;  16823 MW;  7CEE6F1FB2BB38DB CRC64;
+     MNSFRKTCAG ALALIFGATS IVPTVAAPMN MDRPAINQNV IQARAHYRPQ NYNRGHRPGY
+     WHGHRGYRHY RHGYRRHNDG WWYPLAAFGA GAIIGGAISQ PRPVYRAPAG SPHVQWCYSR
+     YKSYRASDNT FQPYNGPRKQ CRSPYSR
+//
+ID   14KL_BRUC2              Reviewed;         147 AA.
+AC   A9MC22;
+DT   20-JAN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   05-FEB-2008, sequence version 1.
+DT   18-JUN-2025, entry version 66.
+DE   RecName: Full=Lectin-like protein BA14k;
+DE   Flags: Precursor;
+GN   OrderedLocusNames=BCAN_B0743;
+OS   Brucella canis (strain ATCC 23365 / NCTC 10854 / RM-666).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Hyphomicrobiales; Brucellaceae; Brucella/Ochrobactrum group; Brucella.
+OX   NCBI_TaxID=483179;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=ATCC 23365 / NCTC 10854 / RM-666;
+RA   Setubal J.C., Bowns C., Boyle S., Crasta O.R., Czar M.J., Dharmanolla C.,
+RA   Gillespie J.J., Kenyon R.W., Lu J., Mane S., Mohapatra S., Nagrani S.,
+RA   Purkayastha A., Rajasimha H.K., Shallom J.M., Shallom S., Shukla M.,
+RA   Snyder E.E., Sobral B.W., Wattam A.R., Will R., Williams K., Yoo H.,
+RA   Bruce D., Detter C., Munk C., Brettin T.S.;
+RT   "Brucella canis ATCC 23365 whole genome shotgun sequencing project.";
+RL   Submitted (OCT-2007) to the EMBL/GenBank/DDBJ databases.
+CC   -!- FUNCTION: Has immunoglobulin-binding and hemagglutination properties,
+CC       and can bind to mannose. Essential for virulence. May be involved in
+CC       LPS biosynthesis or polysaccharide transport (By similarity).
+CC       {ECO:0000250}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane {ECO:0000305}; Single-pass membrane
+CC       protein {ECO:0000305}.
+CC   -!- SIMILARITY: Belongs to the BA14k family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; CP000873; ABX63909.1; -; Genomic_DNA.
+DR   RefSeq; WP_002965908.1; NC_010104.1.
+DR   AlphaFoldDB; A9MC22; -.
+DR   KEGG; bcs:BCAN_B0743; -.
+DR   HOGENOM; CLU_095992_0_0_5; -.
+DR   PhylomeDB; A9MC22; -.
+DR   Proteomes; UP000001385; Chromosome II.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0030246; F:carbohydrate binding; IEA:UniProtKB-KW.
+DR   InterPro; IPR012413; BA14K.
+DR   Pfam; PF07886; BA14K; 1.
+PE   3: Inferred from homology;
+KW   Cell membrane; Lectin; Membrane; Reference proteome; Signal; Transmembrane;
+KW   Transmembrane helix; Virulence.
+FT   SIGNAL          1..26
+FT                   /evidence="ECO:0000255"
+FT   CHAIN           27..147
+FT                   /note="Lectin-like protein BA14k"
+FT                   /id="PRO_0000361298"
+FT   TRANSMEM        80..100
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+SQ   SEQUENCE   147 AA;  16823 MW;  7CEE6F1FB2BB38DB CRC64;
+     MNSFRKTCAG ALALIFGATS IVPTVAAPMN MDRPAINQNV IQARAHYRPQ NYNRGHRPGY
+     WHGHRGYRHY RHGYRRHNDG WWYPLAAFGA GAIIGGAISQ PRPVYRAPAG SPHVQWCYSR
+     YKSYRASDNT FQPYNGPRKQ CRSPYSR
+//
+ID   14KL_BRUME              Reviewed;         147 AA.
+AC   Q7CNS4;
+DT   20-JAN-2009, integrated into UniProtKB/Swiss-Prot.
+DT   05-JUL-2004, sequence version 1.
+DT   09-APR-2025, entry version 81.
+DE   RecName: Full=Lectin-like protein BA14k;
+DE   Flags: Precursor;
+GN   OrderedLocusNames=BMEII0552;
+OS   Brucella melitensis biotype 1 (strain ATCC 23456 / CCUG 17765 / NCTC 10094
+OS   / 16M).
+OC   Bacteria; Pseudomonadati; Pseudomonadota; Alphaproteobacteria;
+OC   Hyphomicrobiales; Brucellaceae; Brucella/Ochrobactrum group; Brucella.
+OX   NCBI_TaxID=224914;
+RN   [1]
+RP   NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA].
+RC   STRAIN=ATCC 23456 / CCUG 17765 / NCTC 10094 / 16M;
+RX   PubMed=11756688; DOI=10.1073/pnas.221575398;
+RA   DelVecchio V.G., Kapatral V., Redkar R.J., Patra G., Mujer C., Los T.,
+RA   Ivanova N., Anderson I., Bhattacharyya A., Lykidis A., Reznik G.,
+RA   Jablonski L., Larsen N., D'Souza M., Bernal A., Mazur M., Goltsman E.,
+RA   Selkov E., Elzer P.H., Hagius S., O'Callaghan D., Letesson J.-J.,
+RA   Haselkorn R., Kyrpides N.C., Overbeek R.;
+RT   "The genome sequence of the facultative intracellular pathogen Brucella
+RT   melitensis.";
+RL   Proc. Natl. Acad. Sci. U.S.A. 99:443-448(2002).
+CC   -!- FUNCTION: Has immunoglobulin-binding and hemagglutination properties,
+CC       and can bind to mannose. Essential for virulence. May be involved in
+CC       LPS biosynthesis or polysaccharide transport (By similarity).
+CC       {ECO:0000250}.
+CC   -!- SUBCELLULAR LOCATION: Cell membrane {ECO:0000305}; Single-pass membrane
+CC       protein {ECO:0000305}.
+CC   -!- SIMILARITY: Belongs to the BA14k family. {ECO:0000305}.
+CC   ---------------------------------------------------------------------------
+CC   Copyrighted by the UniProt Consortium, see https://www.uniprot.org/terms
+CC   Distributed under the Creative Commons Attribution (CC BY 4.0) License
+CC   ---------------------------------------------------------------------------
+DR   EMBL; AE008918; AAL53794.1; -; Genomic_DNA.
+DR   RefSeq; WP_002965908.1; NZ_GG703779.1.
+DR   AlphaFoldDB; Q7CNS4; -.
+DR   KEGG; bme:BMEII0552; -.
+DR   KEGG; bmel:DK63_2694; -.
+DR   PATRIC; fig|224914.52.peg.2822; -.
+DR   eggNOG; ENOG5033457; Bacteria.
+DR   PhylomeDB; Q7CNS4; -.
+DR   Proteomes; UP000000419; Chromosome II.
+DR   GO; GO:0005886; C:plasma membrane; IEA:UniProtKB-SubCell.
+DR   GO; GO:0030246; F:carbohydrate binding; IEA:UniProtKB-KW.
+DR   InterPro; IPR012413; BA14K.
+DR   Pfam; PF07886; BA14K; 1.
+PE   3: Inferred from homology;
+KW   Cell membrane; Lectin; Membrane; Signal; Transmembrane;
+KW   Transmembrane helix; Virulence.
+FT   SIGNAL          1..26
+FT                   /evidence="ECO:0000255"
+FT   CHAIN           27..147
+FT                   /note="Lectin-like protein BA14k"
+FT                   /id="PRO_0000361299"
+FT   TRANSMEM        80..100
+FT                   /note="Helical"
+FT                   /evidence="ECO:0000255"
+SQ   SEQUENCE   147 AA;  16823 MW;  7CEE6F1FB2BB38DB CRC64;
+     MNSFRKTCAG ALALIFGATS IVPTVAAPMN MDRPAINQNV IQARAHYRPQ NYNRGHRPGY
+     WHGHRGYRHY RHGYRRHNDG WWYPLAAFGA GAIIGGAISQ PRPVYRAPAG SPHVQWCYSR
+     YKSYRASDNT FQPYNGPRKQ CRSPYSR
+//

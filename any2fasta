@@ -49,6 +49,8 @@ sub usage {
     "  -u       Uppercase the sequence\n",
     "  -g       Include VERSION (GENBANK,EMBL)\n",
     "  -s       Strip sequence descriptions (FASTA,FASTQ)\n",
+    "  -m INT   Max. unitigs per contig for GFA P-line assembly (0=unlimited, default: 0)\n",
+    "           WARNING: assembled contigs may overcount unitigs\n",
     "HOMEPAGE\n  $URL\n",
     "END\n";
   exit($errcode);
@@ -62,11 +64,13 @@ sub version {
 #......................................................................................
 
 my %opt;
-getopts('vhqnlukgsp', \%opt) or exit(-1);
+getopts('vhqnlukgspm:', \%opt) or exit(-1);
 $opt{v} and version();
 $opt{h} and usage(0);
 @ARGV or usage(1);
 my $prot = $opt{p};
+my $max_u = defined($opt{m}) ? int($opt{m}) : 0;
+err("Option -m requires a non-negative integer") if $max_u < 0;
 
 #......................................................................................
 sub msg {
@@ -258,20 +262,138 @@ sub parse_gff {
 # https://github.com/GFA-spec/GFA-spec/blob/master/GFA1.md 
 # https://github.com/GFA-spec/GFA-spec/blob/master/GFA2.md 
 
+sub revcomp {
+  my($seq) = @_;
+  $seq = reverse($seq);
+  # Full IUPAC complement table (upper and lowercase):
+  #   A<->T  C<->G  R<->Y  S<->S  W<->W  K<->M  B<->V  D<->H  N<->N
+  $seq =~ tr/ACGTRYSWKMBDHVNacgtryswkmbdhvn/TGCAYRSWMKVHDBNtgcayrswmkvhdbn/;
+  return $seq;
+}
+
 sub parse_gfa {
   my($lines) = @_;
-  my %S;
-  my %P;
-  my $count=0;
+  my %seg;    # segment_id -> sequence
+  my %link;   # "from_id:from_orient:to_id:to_orient" -> overlap bp
+  my @paths;  # list of [ name, \@seg_orients, \@overlaps ]
+  my $count = 0;
+
   for my $line (@$lines) {
-    my(@x) = split m/\t/, $line;
-    # this is NOT the original contigs, rather the unitigs
-    # need to parse L (link) and P (path) to reconstruct the contigs
-    if ($x[0] eq 'S') {
-      print ">", $x[1], "\n", purify_seq($x[2]), "\n";
+    chomp $line;
+    my ($record_type, @fields) = split /\t/, $line;
+    if ($record_type eq 'S') {
+      # S (Segment): seg_id  sequence  [optional tags]
+      # A named nucleotide sequence (unitig) that is a node in the assembly graph
+      my ($seg_id, $seq) = @fields;
+      $seg{$seg_id} = $seq;
+    }
+    elsif ($record_type eq 'L') {
+      # L (Link): from_id  from_orient  to_id  to_orient  CIGAR
+      # A directed overlap edge between two segments; CIGAR e.g. "4M" means 4 bp exact overlap
+      my ($from_id, $from_orient, $to_id, $to_orient, $cigar) = @fields;
+      if (defined $cigar and $cigar =~ /^(\d+)M/) {
+        $link{"$from_id:$from_orient:$to_id:$to_orient"} = $1;
+      }
+    }
+    elsif ($record_type eq 'P') {
+      # P (Path): path_name  seg+/-,seg+/-,...  overlap,overlap,...
+      # An ordered, oriented walk of segments that assembles into a single contig
+      my ($path_name, $seg_names, $overlap_str) = @fields;
+      my @segs  = split /,/, $seg_names;
+      my @ovlps = split /,/, ($overlap_str // '*');
+      push @paths, [ $path_name, \@segs, \@ovlps ];
+    }
+  }
+
+  if (@paths) {
+    wrn("GFA P-lines found: assembling contigs from unitig paths.",
+        "Contigs may overrepresent unitigs (each unitig can appear in multiple contigs).");
+    my %in_path;
+    for my $path (@paths) {
+      my ($name, $segs, $ovlps) = @$path;
+      my $nsegs = scalar(@$segs);
+
+      # Mark every segment in the path so it won't be output as a raw segment later
+      for my $s (@$segs) {
+        (my $id = $s) =~ s/[+-]$//;
+        $in_path{$id} = 1;
+      }
+
+      # Determine the sliding-window start positions.
+      # When $max_u==0 (unlimited) or the path fits within the limit, one window covers
+      # the whole path.  Otherwise slide a window of size $max_u one step at a time so
+      # that every unitig appears in at least one output contig.
+      my $win_size  = ($max_u > 0 && $nsegs > $max_u) ? $max_u : $nsegs;
+      my @win_starts = (0 .. $nsegs - $win_size);  # e.g. 0,1,2 for nsegs=4, win=2
+      my $multi = @win_starts > 1;
+
+      for my $wi (0 .. $#win_starts) {
+        my $wstart     = $win_starts[$wi];
+        my @win_segs   = @{$segs}[$wstart .. $wstart + $win_size - 1];
+
+        my $seq = '';
+        for my $i (0 .. $#win_segs) {
+          my ($id, $orient) = ($win_segs[$i] =~ /^(.+?)([+-])$/);
+          if (!exists $seg{$id}) {
+            wrn("Segment '$id' referenced in path '$name' not found in S-lines; skipping this window");
+            $seq = '';
+            last;
+          }
+          # Fetch the segment sequence, reverse-complementing it when the path uses '-' orientation
+          my $seg_seq = $seg{$id};
+          $seg_seq = revcomp($seg_seq) if $orient eq '-';
+          if ($i == 0) {
+            # First segment of this window: start with its full sequence
+            $seq = $seg_seq;
+          }
+          else {
+            # Subsequent segment: trim the shared overlapping prefix before appending.
+            # The overlap length is the number of bases at the start of the current segment
+            # that are identical to the end of the previous segment and must not be duplicated.
+            #
+            # Resolution priority:
+            #   1. CIGAR string from the P-line overlap list (e.g. "4M" → 4 bp overlap)
+            #   2. Overlap length stored from the L-line for this directed edge
+            #   3. Default to 0 (concatenate with no trimming)
+            #
+            # The original-path overlap index for position i within the window starting
+            # at $wstart is ($wstart + $i - 1).
+            my $overlap_bp  = 0;
+            my $pline_cigar = $ovlps->[$wstart + $i - 1] // '*';
+            if ($pline_cigar ne '*' and $pline_cigar =~ /^(\d+)M/) {
+              # P-line supplies an explicit overlap CIGAR – use it directly
+              $overlap_bp = $1;
+            }
+            else {
+              # No P-line CIGAR – fall back to the L-line link between (prev → current)
+              my ($prev_seg_id, $prev_seg_orient) = ($win_segs[$i - 1] =~ /^(.+?)([+-])$/);
+              $overlap_bp = $link{"$prev_seg_id:$prev_seg_orient:$id:$orient"} // 0;
+            }
+            # Skip the overlapping prefix and append the unique portion of this segment
+            $seq .= substr($seg_seq, $overlap_bp);
+          }
+        }
+        next unless $seq;
+        my $contig_name = $multi ? "${name}_w" . ($wi + 1) : $name;
+        print ">$contig_name num_unitigs=", scalar(@win_segs), " unitigs=", join(",", @win_segs), "\n", purify_seq($seq), "\n";
+        $count++;
+      }
+    }
+    # output any segments that are not referenced by any path
+    for my $id (sort keys %seg) {
+      next if $in_path{$id};
+      print ">$id\n", purify_seq($seg{$id}), "\n";
       $count++;
     }
   }
+  else {
+    # no P-lines: output raw segments (unitigs) as before
+    for my $id (sort keys %seg) {
+      print ">$id\n", purify_seq($seg{$id}), "\n";
+      $count++;
+    }
+  }
+
   return $count;
 }
 
@@ -422,10 +544,9 @@ sub parse_pdb {
     #SEQRES   9 A  114  GLY GLY GLY THR LYS VAL GLU IL E LYS ARG
     #SEQRES   1 B  114  ASP ILE VAL MET THR GLN SER PR O ASP SER LEU ALA VAL
     next unless m/^SEQRES/;
-    my @x = split ' ', $_;
-    $seq{"$prefix-$x[2]"} .= 
-      join( '', map { $aa{uc($_)} || 'X'  } 
-        splice(@x,4) );
+    my ($seqres, $seq_num, $chain_id, $num_residues, @amino_acids) = split ' ', $_;
+    $seq{"$prefix-$chain_id"} .= 
+      join( '', map { $aa{uc($_)} || 'X' } @amino_acids );
   }
   for my $id (sort keys %seq) {
     print ">", $id, "\n", purify_seq($seq{$id}), "\n";

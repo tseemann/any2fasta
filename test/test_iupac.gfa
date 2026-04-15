@@ -1,0 +1,5 @@
+H	VN:Z:1.0
+S	iupac	ACGTRYWN
+S	plain	ACGTACGT
+L	iupac	-	plain	+	0M
+P	iupac_rc	iupac-,plain+	0M

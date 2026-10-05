@@ -117,16 +117,19 @@ for my $infile (@ARGV) {
     next FILE;
   }
   # read first line to see if we have any data
-  my $unzip = IO::Uncompress::AnyUncompress->new(
+  my $data;
+  my $res = anyuncompress(
     $infile,
+    \$data,
     'MultiStream' => 1,  # fix Issue #34
     'Transparent'  => 1, # allow non-compressed data 
     'BlockSize'=> (1 << 16), # in bytes
   );
-  if (! $unzip) {
+  if (! $res) {
     $notify->($AnyUncompressError);
     next FILE;
   }
+  open my $unzip, '<', \$data;
   my $header = scalar(<$unzip>); # read first line
   if (not $header) {
     $notify->("The input appears to be empty");
